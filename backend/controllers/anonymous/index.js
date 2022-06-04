@@ -5,7 +5,7 @@ const winston = require('../../lib/common/winston');
 const signUP = async (req, res) => {
     const data = req.body;
     if(!data.id || !data.pw || !data.nickName || !data.email){
-        res.send({message : "wrong data"}); return;
+        res.send({message : "wrong form"}); return;
     }
     try{
         const result = await anonymousService.signUp(data);

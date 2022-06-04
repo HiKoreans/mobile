@@ -1,6 +1,5 @@
 const {models, Op} = require('../../lib/db');
 const winston = require('../../lib/common/winston');
-const res = require('express/lib/response');
 
 
 const signUp = async (data) => {
@@ -49,10 +48,10 @@ const signIn = async (id, pw) => {
                 throw new Error('DB_SIGNIN');
             }
         }else {
-            res.send({message : "wrong data"})
+            return {message : "wrong data"};
         }
     }else {
-        res.send({message : "wrong data"})
+        return {message : "wrong data"};
     }
 }
 
