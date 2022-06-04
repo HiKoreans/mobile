@@ -15,7 +15,6 @@ const createBoard = async (data)=> {
         throw new Error('DB_CREATEBOARD');
     }
 }
-
 const getBoardList = async ()=> {
     let result;
     try {
