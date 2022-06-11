@@ -7,11 +7,15 @@ const Container = styled.View`
   align-items: center;
   background-color: #E7EBF4;
 `;
+const StyledText = styled.Text`
+  font-size: 30px;
+  margin-bottom: 10px;
+`;
 
 const MyInfo = () => {
   return (
     <Container>
-      내정보
+      <StyledText>내정보</StyledText>
     </Container>
   );
 };

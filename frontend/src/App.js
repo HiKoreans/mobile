@@ -5,7 +5,7 @@ import TabNavigation from './tools/TabNavigation';
 const App = () => {
   return (
     <NavigationContainer>
-      <TabNavigation />
+      <TabNavigation/>
     </NavigationContainer>
   );
 };

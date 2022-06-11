@@ -8,10 +8,15 @@ const Container = styled.View`
   background-color: #E7EBF4;
 `;
 
+const StyledText = styled.Text`
+  font-size: 30px;
+  margin-bottom: 10px;
+`;
+
 const Community = () => {
   return (
     <Container>
-      동네생활
+      <StyledText>동네생활</StyledText>
     </Container>
   );
 };

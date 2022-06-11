@@ -7,11 +7,15 @@ const Container = styled.View`
   align-items: center;
   background-color: #E7EBF4;
 `;
+const StyledText = styled.Text`
+  font-size: 30px;
+  margin-bottom: 10px;
+`;
 
 const Job = () => {
   return (
     <Container>
-      구인공고
+      <StyledText>구인공고</StyledText>
     </Container>
   );
 };
