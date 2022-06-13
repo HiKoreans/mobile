@@ -13,7 +13,7 @@ const TabIcon = ({ name, size, color }) => {
 
 const Tab = createBottomTabNavigator();
 
-const Navigation = () => {
+const TabNavigation = () => {
   return (
     <Tab.Navigator
       initialRouteName="홈"
@@ -92,4 +92,4 @@ const Navigation = () => {
   );
 };
 
-export default Navigation;
+export default TabNavigation;
