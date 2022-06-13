@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import { Text, Alert, Button, View, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { Text, Alert, Button, View, StyleSheet, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 
 const Container = styled.View`
   flex: 1;
@@ -11,7 +11,8 @@ const Container = styled.View`
 
 const MyInfo = () => {
   return (
-    <Container>
+    <ScrollView>
+      <View style={styles.container}>
                 <View style={styles.titleArea}>
                     <Text style={styles.title}>이름(닉네임)</Text>
                     <Text style={styles.content}>이름이름</Text>
@@ -32,11 +33,22 @@ const MyInfo = () => {
                     <Text style={styles.title}>거주지역</Text>
                     <Text style={styles.content}>Canada</Text>
                 </View>
-    </Container>
+      </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#E7EBF4',
+    paddingLeft: '10%',
+    paddingRight: '10%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: '100%',
+    
+},
   titleArea: {
       width: '100%',
       alignItems: 'center',
