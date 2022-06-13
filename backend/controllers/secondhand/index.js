@@ -13,9 +13,27 @@ const createSecondhand = async(req, res)=> {
         winston.error(`Unable to  createSecondhand:`, err);
         throw new Error('UNABLE_CREATE_SECONDHAND');
     }
-
+}
+const getSecondhandList = async(req, res)=> {
+    try{
+        const result = await secondhandService.getSecondhandList();
+        res.send(result);
+    }catch(err){
+        winston.error(`Unable to getSecondhandList :`, err);
+        throw new Error('getSecondhandList');
+    }
 }
 
+const getClickSecondhand = async(req,res) => {
+    const secondhandIdx = req.params.secondhandIdx;
+    try{
+        const result = await secondhandService.getClickSecondhand(secondhandIdx);
+        res.send(result);
+    }catch(err){
+        winston.error(`Unable to getClickSecondhand :`, err);
+        throw new Error('UNABLE_getClickSecondhand');
+    }
+}
 module.exports = {
-    createSecondhand
+    createSecondhand, getClickSecondhand, getSecondhandList
 }

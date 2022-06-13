@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import React from 'react';
+import { View } from 'react-native';
 import { Button } from 'react-native-web';
 
 function LoginScreen({navigation}) {
