@@ -15,6 +15,27 @@ const createRecruitment = async(req, res)=> {
     }
 }
 
+const getRecruitment = async(req, res)=> {
+    try{
+        const result = await recruitmentService.getRecruitmentList();
+        res.send(result);
+    }catch(err){
+        winston.error(`Unable to getBoard :`, err);
+        throw new Error('UNABLE_GETBOARD');
+    }
+}
+
+const getClickRecruitment = async(req,res) => {
+    const recruitmentIdx = req.params.recruitmentIdx;
+    try{
+        const result = await recruitmentService.getClickRecruitment(recruitmentIdx);
+        res.send(result);
+    }catch(err){
+        winston.error(`Unable to getClickRecruitment :`, err);
+        throw new Error('getClickRecruitment');
+    }
+}
+
 module.exports = {
-    createRecruitment
+    createRecruitment, getRecruitment, getClickRecruitment
 }

@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, StatusBar } from 'react-native';
+import React from 'react';
+import { View } from 'react-native';
 import { Button } from 'react-native-web';
 
 function LoginScreen({navigation}) {
