@@ -1,11 +1,19 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import TabNavigation from './tools/TabNavigation';
+import { createStackNavigator } from '@react-navigation/stack';
+
+import LoginScreen from './screens/LoginScreen'
+import Home from './screens/HomeScreen'
+
+const Stack = createStackNavigator();
 
 const App = () => {
   return (
     <NavigationContainer>
-      <TabNavigation/>
+      <Stack.Navigator initialRouteName="login">
+        <Stack.Screen name="login" component={LoginScreen} />
+        <Stack.Screen name="home" component={Home} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 };
