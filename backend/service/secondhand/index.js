@@ -15,7 +15,35 @@ const createSecondhand = async(data) => {
         throw new Error('DB__CREATE_SECONDHAND');  
     }
 }
+const getSecondhandList = async ()=> {
+    let result;
+    try {
+        result = await models['secondhand'].findAll();
+        return result;
+    }catch(err){
+        winston.error(`Unable to getSecondhandList[servcie] :`, err);
+        throw new Error('DB_getSecondhandList');
+    }
+}
 
+const getClickSecondhand = async (secondhandIdx)=> {
+    let where = {};
+    where.secondhandIdx = secondhandIdx;
+    try {
+        const result = await models['secondhand'].findAll({
+            where,
+            include : [
+                {
+                    model : models['user'],
+                }
+            ]
+        })
+        return result;
+    }catch(err){
+        winston.error(`Unable to getClickSecondhand[servcie] :`, err);
+        throw new Error('DB_getClickSecondhand');
+    }
+}
 module.exports = {
-    createSecondhand
+    createSecondhand,getClickSecondhand, getSecondhandList
 }
