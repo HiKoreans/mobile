@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components/native';
 import { StyleSheet, Text, View, TouchableOpacity, Dimensions } from 'react-native';
-import Navigation from '../tools/TabNavigation';
 
 const { width : SCREEN_WIDTH } = Dimensions.get("window");
 
@@ -9,7 +8,7 @@ const Container = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
-  background-color: '#E7EBF4';
+  background-color: #E7EBF4;
 `;
 
 const List = styled.ScrollView`
@@ -30,12 +29,9 @@ const Community = () => {
   return (
     <List>
       <Container>
-      {/* <Container>
-        <Text>동네생활</Text>
-      </Container> */}
         {Object.values(contents)
           .map(item => (
-            <View style={styles.content}>
+            <View style={styles.content} key={item.id}>
               <TouchableOpacity>
                 <View style={styles.titlePart}>
                   <Text style={styles.type}>{item.type == '0' ? '(공지) ' : ''}</Text>
