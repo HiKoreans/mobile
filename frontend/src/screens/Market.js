@@ -41,6 +41,7 @@ const Market = () => {
         {Object.values(contents)
           .map(item => (
             <View style={styles.content} key={item.id}>
+              {/* <TouchableOpacity onPress={() => navigation.navigate('벼룩시장 글 페이지')}> */}
               <TouchableOpacity>
                 <View style={styles.contentHeader}>
                   <View style={styles.titlePart}>

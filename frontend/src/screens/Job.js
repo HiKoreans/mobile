@@ -40,6 +40,7 @@ const Job = () => {
         {Object.values(contents)
           .map(item => (
             <View style={styles.content} key={item.id}>
+              {/* <TouchableOpacity onPress={() => navigation.navigate('구인공고 글 페이지')}> */}
               <TouchableOpacity>
                 <View style={styles.titlePart}>
                   <Text style={styles.title}>{item.title}</Text>

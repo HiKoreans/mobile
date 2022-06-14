@@ -41,6 +41,7 @@ const Community = () => {
         {Object.values(contents)
           .map(item => (
             <View style={styles.content} key={item.id}>
+              {/* <TouchableOpacity onPress={() => navigation.navigate('동네생활 글 페이지')}> */}
               <TouchableOpacity>
                 <View style={styles.titlePart}>
                   <Text style={styles.type}>{item.type == '0' ? '(공지) ' : ''}</Text>
