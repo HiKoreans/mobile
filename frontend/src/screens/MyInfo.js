@@ -4,10 +4,6 @@ import { Text, Alert, Button, View, StyleSheet, TextInput, TouchableOpacity, Scr
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-
-
-
-
 const MyInfo = () => {
   const [user, setUser] = useState({});
 

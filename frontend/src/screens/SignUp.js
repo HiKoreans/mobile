@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet} from 'react-native';
 import axios from 'axios';
-
+import anonymous from '../service/anonymous'
 const SignUp = () => {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
@@ -27,14 +27,7 @@ const SignUp = () => {
     }
     else {
       try{
-        const result = await axios.post('http://localhost:8080/signup',{
-          id : id,
-          pw : password,
-          email : email,
-          nickName : nickName,
-          region : region
-        });
-        console.log(result)
+        const result = anonymous.signup(id, password, email, nickName, region);
         if(result){
           alert('회원가입 성공!');
           navigation.navigate('login');
@@ -42,7 +35,7 @@ const SignUp = () => {
           alert('회원가입에 오류가 발생했습니다. 다시 시도해주세요.');
         }
       }catch(err){
-        console.log(err);
+        console.log(err)
       }
     }
   }

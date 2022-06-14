@@ -17,7 +17,7 @@ const createRecruitment = async(data) => {
 }
 const getRecruitmentList = async ()=> {
     let result;
-    try {
+    try {                      
         result = await models['recruitment'].findAll();
         return result;
     }catch(err){

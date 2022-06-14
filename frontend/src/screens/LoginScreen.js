@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import axios from "axios";
+import anonymousService from '../service/anonymous'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 function LoginScreen({navigation}) {
 
@@ -17,10 +17,7 @@ function LoginScreen({navigation}) {
       return;
     }else {
       try{
-        const result = await axios.post('http://localhost:8080/signin',{
-          id : id,
-          password : password
-        });
+        const result = await anonymousService.signin(id, password);
         if(result.data.data){
           const temp = JSON.stringify(result.data.data)
           await AsyncStorage.setItem('accesstoken', temp);
@@ -29,7 +26,7 @@ function LoginScreen({navigation}) {
           alert('존재하는 회원 정보가 없습니다. 다시 입력해주세요.')
         }
       }catch(err){
-        console.log(err)
+        // alert(err);
       }
     }
   }
