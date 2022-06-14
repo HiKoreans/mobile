@@ -18,11 +18,11 @@ const signUP = async (req, res) => {
 
 const signIn = async (req, res) => {
     const data = req.body;
-    if(!data.id || !data.pw){
-        return;
-    }
+    // if(!data.id || !data.pw){
+    //     return;
+    // }
     try{
-        const result = await anonymousService.signIn(data.id, data.pw);
+        const result = await anonymousService.signIn(data.id, data.password);
         res.send(result);
     }catch(err){
         winston.error(`Unable to signIn :`, err);
