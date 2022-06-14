@@ -1,9 +1,8 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components/native';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native';
 import Promotion from '../images/PM.jpg';
-// import axios from 'axios';
-
+import boardService from '../service/board';
 
 // const [community, setCommunity] = useState('');
 // const [board, setBoard] = useState('');
@@ -29,35 +28,86 @@ import Promotion from '../images/PM.jpg';
 
 
 const Main = () => {
+  const [board, setBoard]= useState([]);
+  const [seconhand, setSeconhand]= useState([]);
+  const [recruitment, setRecruitment]= useState([]);
+
+  const getBoardList = async()=> {
+    try{
+      const result = await boardService.getBoardList();
+      let temp = [];
+      for(let i = 0; i < 3; i++){
+        temp[i] = result.data[i];
+      }
+      setBoard(temp);
+    }catch(err){
+      console.log(err);
+    }
+  }
+  const getSecondhandList = async()=> {
+    try{
+      const result = await boardService.getSecondhandList();
+      let temp = [];
+      for(let i = 0; i < 3; i++){
+        temp[i] = result.data[i];
+      }
+      setSeconhand(temp);
+    }catch(err){
+      console.log(err);
+    }
+  }
+  const getRecruitmentList = async()=> {
+    try{
+      const result = await boardService.getRecruitmentList();
+      let temp = [];
+      for(let i = 0; i < 3; i++){
+        temp[i] = result.data[i];
+      }
+      setRecruitment(temp);
+    }catch(err){
+      console.log(err);
+    }
+  }
+
+
+  useEffect(() => {
+    getBoardList();
+    getSecondhandList();
+    getRecruitmentList();
+  },[]);
+
   return (
     <ScrollView>
     <View style={styles.container}>
         <View style={styles.board}>
         <Text style={styles.title}>구인공고</Text>
-        <View style = {{justifyContent: 'center', alignItems: 'center',}}>
-          <Image style={{height: 200, width: 800,}} source={Promotion}/>
-          </View>
+        
+        {recruitment.map((item, index) => (
+          <Text style={styles.content} key={index}>
+            {item.subject}
+          </Text>
+        ))}
         <View style={styles.contourLine}/>
       </View>
 
       <View style={styles.board}>
         <Text style={styles.title}>동네생활</Text>
         
-        {/* {community.map(community => (
-          <Text style={styles.content}>
-            동네생활 제목 가져오기! community.content
+        {board.map((item, index) => (
+          <Text style={styles.content} key={index}>
+            {item.subject}
           </Text>
-        ))} */}
+        ))}
         <View style={styles.contourLine}/>
       </View>
 
       <View style={styles.board}>
         <Text style={styles.title}>벼룩시장</Text>
-        {/* {board.map(board => (
-          <Text style={styles.content}>
-            벼룩시장 제목 가져오기! board.content
+        {seconhand.map((item, index) => (
+          <Text style={styles.content} key={index}>
+            {item.subject}
           </Text>
-        ))} */}
+        ))}
       </View>
     </View>
     </ScrollView>

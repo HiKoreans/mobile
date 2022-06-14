@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import axios from "axios";
+import anonymousService from '../service/anonymous'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 function LoginScreen({navigation}) {
 
-  const [id, setId] = useState('');
-  const [password, setPassword] = useState('');
+  const [id, setId] = useState('a');
+  const [password, setPassword] = useState('a');
+
 
   const loginPress = async () => {
     if(!id) {
@@ -15,16 +16,17 @@ function LoginScreen({navigation}) {
       alert('비밀번호를 입력하세요');
       return;
     }else {
-      const result = await axios.post('http://localhost:8080/signin',{
-        id : id,
-        password : password
-      });
-      if(result.data.data){
-        const temp = JSON.stringify(result.data.data)
-        await AsyncStorage.setItem('accesstoken', temp);
-        navigation.navigate('HiKoreans')
-      }else {
-        alert('존재하는 회원 정보가 없습니다. 다시 입력해주세요.')
+      try{
+        const result = await anonymousService.signin(id, password);
+        if(result.data.data){
+          const temp = JSON.stringify(result.data.data)
+          await AsyncStorage.setItem('accesstoken', temp);
+          navigation.navigate('HiKoreans')
+        }else {
+          alert('존재하는 회원 정보가 없습니다. 다시 입력해주세요.')
+        }
+      }catch(err){
+        // alert(err);
       }
     }
   }
