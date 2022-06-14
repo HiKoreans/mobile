@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components/native';
 import { StyleSheet, Text, View, TouchableOpacity, Dimensions, Image } from 'react-native';
+import AppLoading from 'expo-app-loading';
 
 const { width : SCREEN_WIDTH } = Dimensions.get("window");
 
@@ -17,6 +18,7 @@ const List = styled.ScrollView`
 
 const Job = () => {
 
+  const [isReady, setIsReady] = useState(false);
   const [contents, setContents] = useState({
     '1': { id: '1', title: 'Project Manager', writer: 'Netmarble US', image: 'https://picsum.photos/id/237/200/300' },
     '2': { id: '2', title: 'Project Manager', writer: 'Netmarble US', image: 'https://picsum.photos/id/237/200/300' },
@@ -26,7 +28,12 @@ const Job = () => {
     '6': { id: '6', title: 'Project Manager', writer: 'Netmarble US', image: 'https://picsum.photos/id/237/200/300' },
   });
 
-  return (
+  const _loadData = async () => {
+    // const data = await AsyncStorage.getItem('data');
+    setContents(JSON.parse(data || '{}'));
+  };
+
+  return isReady ? (
     <List>
       <Container>
         {Object.values(contents)
@@ -44,10 +51,14 @@ const Job = () => {
               </TouchableOpacity>
             </View>
         ))}
-        
-        
       </Container>
     </List>
+  ) : (
+    <AppLoading
+      startAsync={_loadData}
+      onFinish={() => setIsReady(true)}
+      onError={console.error}
+    />
   );
 };
 

@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components/native';
 import { StyleSheet, Text, View, TouchableOpacity, Dimensions, Image } from 'react-native';
-
-import defaultImage from '../../assets/favicon.png';
+import AppLoading from 'expo-app-loading';
 
 const { width : SCREEN_WIDTH } = Dimensions.get("window");
 
@@ -19,7 +18,9 @@ const List = styled.ScrollView`
 
 const Market = () => {
 
+  const [isReady, setIsReady] = useState(false);
   const [contents, setContents] = useState({
+    //데이터 연동시 제거부분
     '1': { id: '1', type: '0', title: '영어팩', price: '$15', image: 'https://picsum.photos/id/237/200/300' },
     '2': { id: '2', type: '0', title: '미니냉장고', price: '$15', image: 'https://picsum.photos/id/237/200/300' },
     '3': { id: '3', type: '1', title: '주변 한식당 맛집 추천해주세요~', price: '$15', image: 'https://picsum.photos/id/237/200/300' },
@@ -28,7 +29,12 @@ const Market = () => {
     '6': { id: '6', type: '1', title: '~~~~~~~~~~', price: '$15', image: '' },
   });
 
-  return (
+  const _loadData = async () => {
+    // const data = await AsyncStorage.getItem('data');
+    setContents(JSON.parse(data || '{}'));
+  };
+
+  return isReady ? (
     <List>
       <Container>
         {Object.values(contents)
@@ -55,20 +61,22 @@ const Market = () => {
                     resizeMode='contain'/>
                 </View>
                 }
-                
               </TouchableOpacity>
             </View>
         ))}
-        
-        
       </Container>
     </List>
+  ) : (
+    <AppLoading
+      startAsync={_loadData}
+      onFinish={() => setIsReady(true)}
+      onError={console.error}
+    />
   );
 };
 
 const styles = StyleSheet.create({
   content: {
-    // flex: 1,
     backgroundColor: 'white',
     borderRadius : 10,
     borderWidth : 1,
