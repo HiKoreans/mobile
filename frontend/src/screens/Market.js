@@ -31,7 +31,7 @@ const Market = () => {
 
   const _loadData = async () => {
     // const data = await AsyncStorage.getItem('data');
-    setContents(JSON.parse(data || '{}'));
+    // setContents(JSON.parse(data || '{}'));
   };
 
   return isReady ? (
