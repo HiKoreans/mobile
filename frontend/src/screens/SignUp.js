@@ -1,53 +1,49 @@
 import React, {useState} from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet} from 'react-native';
-// import axios from 'axios';
-
-// function postUser() {
-//     const result = await axios.post('URL',{
-//       	//데이터 
-//         userid: id,
-//         userpassword: password,
-//         useremail: email,
-//         username: nickName,
-//         userregion: region
-//     });
-// }
-
-
+import axios from 'axios';
 
 const SignUp = () => {
-
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [nickName, setnickName] = useState('');
   const [region, setRegion] = useState('');
 
-  const joinPress = () => {
+  const joinPress = async() => {
     if(!id) {
-      alert('아이디를 입력하세요');
-      return;
+      alert('아이디를 입력하세요'); return;
     }
     else if(!password) {
-      alert('비밀번호를 입력하세요');
-      return;
+      alert('비밀번호를 입력하세요'); return;
     }
     else if(!email) {
-      alert('이메일을 입력하세요');
-      return;
+      alert('이메일을 입력하세요'); return;
     }
     else if(!nickName) {
-      alert('이름(별명)을 입력하세요');
-      return;
+      alert('이름(별명)을 입력하세요'); return;
     }
     else if(!region) {
-      alert('지역을 입력하세요');
-      return;
+      alert('지역을 입력하세요'); return;
     }
     else {
-      // postUser();
-      alert('회원가입 성공!');
-      navigation.navigate('login')
+      try{
+        const result = await axios.post('http://localhost:8080/signup',{
+          id : id,
+          pw : password,
+          email : email,
+          nickName : nickName,
+          region : region
+        });
+        console.log(result)
+        if(result){
+          alert('회원가입 성공!');
+          navigation.navigate('login');
+        }else{
+          alert('회원가입에 오류가 발생했습니다. 다시 시도해주세요.');
+        }
+      }catch(err){
+        console.log(err);
+      }
     }
   }
 

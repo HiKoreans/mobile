@@ -1,46 +1,45 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components/native';
 import { Text, Alert, Button, View, StyleSheet, TextInput, TouchableOpacity, ScrollView } from 'react-native';
-// import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-// const [user, setUser] = useState('');
 
-// const fetchUser = async () => {
-//   const result = await axios.get('URL',{
-//         //data
-//       });
-//   setUser(/* 데이터 */);
-// }
 
-// useEffect(() => {
-//   fetchUser();
-// },[]);
+
 
 const MyInfo = () => {
-  
+  const [user, setUser] = useState({});
+
+
+  const fetchUser = async () => {
+    const temp = await AsyncStorage.getItem('accesstoken');
+    const temp2 =  JSON.parse(temp);
+    temp2.created =await temp2.created.substr(0, 10);
+    setUser(temp2);
+  }
+  useEffect(() => {
+    fetchUser();
+  },[]);
+
   return (
     <ScrollView>
       <View style={styles.container}>
                 <View style={styles.titleArea}>
                     <Text style={styles.title}>아이디</Text>
-                    <Text style={styles.content}>{/*데이터*/}</Text>
-                </View>
-                <View style={styles.titleArea}>
-                    <Text style={styles.title}>비밀번호</Text>
-                    <Text style={styles.content}>{/*데이터*/}</Text>
+                    <Text style={styles.content}>{user.id}</Text>
                 </View>
                 <View style={styles.titleArea}>
                     <Text style={styles.title}>이메일</Text>
-                    <Text style={styles.content}>{/*데이터*/}</Text>
+                    <Text style={styles.content}>{user.email}</Text>
                 </View>
                 <View style={styles.titleArea}>
                     <Text style={styles.title}>이름(별명)</Text>
-                    <Text style={styles.content}>{/*데이터*/}</Text>
+                    <Text style={styles.content}>{user.nickName}</Text>
                 </View>
                 <View style={styles.titleArea}>
-                    <Text style={styles.title}>거주지역</Text>
-                    <Text style={styles.content}>{/*데이터*/}</Text>
+                    <Text style={styles.title}>가입날짜</Text>
+                    <Text style={styles.content}>{user.created}</Text>
                 </View>
       </View>
     </ScrollView>
