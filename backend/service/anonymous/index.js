@@ -42,6 +42,7 @@ const signIn = async (id, pw) => {
         if(pw === idData.pw){
             try{
                 delete idData.pw; // data에서 pw제거
+                console.log(idData)
                 return {data : idData};
             }catch(err){
                 winston.error(`Unable to signIn[service] :`, err);
