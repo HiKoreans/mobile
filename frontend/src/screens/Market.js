@@ -16,6 +16,7 @@ const List = styled.ScrollView`
   flex: 1;
 `;
 
+// const Market = ({navigation}) => {
 const Market = () => {
 
   const [isReady, setIsReady] = useState(false);

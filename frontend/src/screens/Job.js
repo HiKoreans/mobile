@@ -16,6 +16,7 @@ const List = styled.ScrollView`
   flex: 1;
 `;
 
+// const Job = ({navigation}) => {
 const Job = () => {
 
   const [isReady, setIsReady] = useState(false);

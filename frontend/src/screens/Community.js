@@ -16,6 +16,7 @@ const List = styled.ScrollView`
   flex: 1;
 `;
 
+// const Community = ({navigation}) => {
 const Community = () => {
 
   const [isReady, setIsReady] = useState(false);
