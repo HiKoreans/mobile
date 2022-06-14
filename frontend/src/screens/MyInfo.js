@@ -1,37 +1,46 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import { Text, Alert, Button, View, StyleSheet, TextInput, TouchableOpacity, ScrollView } from 'react-native';
+// import axios from 'axios';
 
-const Container = styled.View`
-  flex: 1;
-  // align-items: center;
-  background-color: #E7EBF4;
-  
-`;
+
+// const [user, setUser] = useState('');
+
+// const fetchUser = async () => {
+//   const result = await axios.get('URL',{
+//         //data
+//       });
+//   setUser(/* 데이터 */);
+// }
+
+// useEffect(() => {
+//   fetchUser();
+// },[]);
 
 const MyInfo = () => {
+  
   return (
     <ScrollView>
       <View style={styles.container}>
                 <View style={styles.titleArea}>
-                    <Text style={styles.title}>이름(닉네임)</Text>
-                    <Text style={styles.content}>이름이름</Text>
-                </View>
-                <View style={styles.titleArea}>
                     <Text style={styles.title}>아이디</Text>
-                    <Text style={styles.content}>ID</Text>
+                    <Text style={styles.content}>{/*데이터*/}</Text>
                 </View>
                 <View style={styles.titleArea}>
                     <Text style={styles.title}>비밀번호</Text>
-                    <Text style={styles.content}>***</Text>
+                    <Text style={styles.content}>{/*데이터*/}</Text>
                 </View>
                 <View style={styles.titleArea}>
-                    <Text style={styles.title}>전화번호</Text>
-                    <Text style={styles.content}>010-1111-1111</Text>
+                    <Text style={styles.title}>이메일</Text>
+                    <Text style={styles.content}>{/*데이터*/}</Text>
+                </View>
+                <View style={styles.titleArea}>
+                    <Text style={styles.title}>이름(별명)</Text>
+                    <Text style={styles.content}>{/*데이터*/}</Text>
                 </View>
                 <View style={styles.titleArea}>
                     <Text style={styles.title}>거주지역</Text>
-                    <Text style={styles.content}>Canada</Text>
+                    <Text style={styles.content}>{/*데이터*/}</Text>
                 </View>
       </View>
     </ScrollView>

@@ -1,5 +1,18 @@
 import React, {useState} from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet} from 'react-native';
+// import axios from 'axios';
+
+// function postUser() {
+//     const result = await axios.post('URL',{
+//       	//데이터 
+//         userid: id,
+//         userpassword: password,
+//         useremail: email,
+//         username: nickName,
+//         userregion: region
+//     });
+// }
+
 
 
 const SignUp = () => {
@@ -7,7 +20,7 @@ const SignUp = () => {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
-  const [name, setName] = useState('');
+  const [nickName, setnickName] = useState('');
   const [region, setRegion] = useState('');
 
   const joinPress = () => {
@@ -23,8 +36,8 @@ const SignUp = () => {
       alert('이메일을 입력하세요');
       return;
     }
-    else if(!name) {
-      alert('이름을 입력하세요');
+    else if(!nickName) {
+      alert('이름(별명)을 입력하세요');
       return;
     }
     else if(!region) {
@@ -32,6 +45,7 @@ const SignUp = () => {
       return;
     }
     else {
+      // postUser();
       alert('회원가입 성공!');
       navigation.navigate('login')
     }
@@ -64,11 +78,11 @@ const SignUp = () => {
                         style={styles.textForm} 
                         />
 
-                    <Text style={styles.formName}>이름</Text>
+                    <Text style={styles.formName}>이름(별명)</Text>
                     <TextInput 
-                        label={name}
+                        label={nickName}
                         autoCapitalize="none"
-                        onChangeText={(name) => setName(name)}
+                        onChangeText={(nickName) => setnickName(nickName)}
                         style={styles.textForm} 
                         />
 

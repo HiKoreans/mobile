@@ -1,8 +1,31 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styled from 'styled-components/native';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native';
 import Promotion from '../images/PM.jpg';
+// import axios from 'axios';
 
+
+// const [community, setCommunity] = useState('');
+// const [board, setBoard] = useState('');
+
+// const fetchCommunity = async () => {
+//   const result = await axios.get('URL',{
+//         //data
+//       });
+//   setCommunity(/* 데이터 */);
+// }
+
+// const fetchBoard = async () => {
+//   const result = await axios.get('URL',{
+//         //data
+//       });
+//       setBoard(/* 데이터 */);
+// }
+
+// useEffect(() => {
+//   fetchCommunity();
+//   fetchBoard();
+// },[]);
 
 
 const Main = () => {
@@ -19,17 +42,22 @@ const Main = () => {
 
       <View style={styles.board}>
         <Text style={styles.title}>동네생활</Text>
-          <Text style={styles.content}>-내용</Text>
-          <Text style={styles.content}>-내용</Text>
-          <Text style={styles.content}>-내용</Text>
+        
+        {/* {community.map(community => (
+          <Text style={styles.content}>
+            동네생활 제목 가져오기! community.content
+          </Text>
+        ))} */}
         <View style={styles.contourLine}/>
       </View>
 
       <View style={styles.board}>
         <Text style={styles.title}>벼룩시장</Text>
-          <Text style={styles.content}>-내용</Text>
-          <Text style={styles.content}>-내용</Text>
-          <Text style={styles.content}>-내용</Text>
+        {/* {board.map(board => (
+          <Text style={styles.content}>
+            벼룩시장 제목 가져오기! board.content
+          </Text>
+        ))} */}
       </View>
     </View>
     </ScrollView>
