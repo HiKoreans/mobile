@@ -12,7 +12,7 @@ const Container = styled.View`
 const MarketClick = () => {
     return (
         <Container>
-            
+            <Text>MarketClick</Text>
         </Container>
     );
 };
