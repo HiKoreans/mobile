@@ -22,7 +22,7 @@ const Container = styled.View`
 `;
 
 const List = styled.ScrollView`
-
+    width: '100%',
 `;
 
 const CommunityClick = ({route, navigation}) => {
