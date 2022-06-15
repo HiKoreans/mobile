@@ -44,7 +44,6 @@ const MarketClick = ({route, navigation}) => {
     const getComment =async ()=> {
         try {
             const result = await secondhandService.getComment(secondhandItem.item.secondhandIdx);
-            console.log(result.data)
             setComments(result.data)
         }catch(err){
             console.log(err);

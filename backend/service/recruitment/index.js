@@ -51,10 +51,24 @@ const getClickRecruitment = async (recruitmentIdx)=> {
         throw new Error('DB_getClickRecruitment');
     }
 }
+const deleteClickRecruitment = async (recruitmentIdx)=> {
+    try {
+        const result = await models['recruitment'].destroy({
+            where : {
+                recruitmentIdx : recruitmentIdx
+            }
+        })
+        return result;
+    }catch(err){
+        winston.error(`Unable to deleteClickRecruitment[servcie] :`, err);
+        throw new Error('DB_deleteClickRecruitment');
+    }
+}
 
 
 module.exports = {
     createRecruitment,
     getRecruitmentList,
-    getClickRecruitment
+    getClickRecruitment,
+    deleteClickRecruitment
 }
