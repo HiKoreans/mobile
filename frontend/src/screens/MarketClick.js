@@ -81,13 +81,6 @@ const MarketClick = ({route, navigation}) => {
             <KeyboardAwareScrollView>
                 <View style={styles.outer}>
                     <View style={styles.contents}>
-                        {/* <View style={styles.profile}> */}
-                            {/* <Image 
-                                style={styles.image}
-                                // source={{uri: contents.image}}
-                                resizeMode='contain'/> */}
-                            {/* <Text style={styles.contentWriterText}>글쓴이 : {secondhandUser.nickName}</Text>
-                        </View> */}
                         <View style={styles.titlePart}>
                             <View style={styles.title}>
                                 <Text style={{...styles.type, color: secondhand.type == '0' ? 'blue' : 'red'}}>{secondhand.type == '0' ? '(팝니다)': '(삽니다)'}</Text>
@@ -95,7 +88,8 @@ const MarketClick = ({route, navigation}) => {
                             </View>
                             <Text style={styles.priceText}>${secondhand.price}</Text>
                         </View>
-                        <Text style={styles.contentWriterText}>글쓴이 : {secondhandUser.nickName}</Text>
+                        <Text style={styles.contentWriterText}>작성자 : {secondhandUser.nickName}</Text>
+                        <Text style={styles.dateText}>작성일시 : {secondhand.created}</Text>
                         <Text style={styles.contentText}>{secondhand.content}</Text>
                     </View>
                     <View style={styles.contourLine}/>
@@ -105,19 +99,17 @@ const MarketClick = ({route, navigation}) => {
                             index == "0" ?
                             <View style={styles.comment} key={index}>
                                 <View style={styles.writer}>
-                                    <Text style={styles.name}>이름 : </Text>
                                     <Text style={styles.writerText}>{item.user.nickName}</Text>
                                 </View>
-                                <Text style={styles.commentText}>내용 :  {item.comment}</Text>
+                                <Text style={styles.commentText}>{item.comment}</Text>
                             </View>
                             :
                             <View style={styles.comment} key={index}>
                                 <View style={styles.contourLine}/>
                                 <View style={styles.writer}>
-                                    <Text style={styles.name}>이름 : </Text>
                                     <Text style={styles.writerText}>{item.user.nickName}</Text>
                                 </View>
-                                <Text style={styles.commentText}>내용 :  {item.comment}</Text>
+                                <Text style={styles.commentText}>{item.comment}</Text>
                             </View>
                         ))}
                     </List>
@@ -180,11 +172,10 @@ const styles = StyleSheet.create({
         // overflow: 'hidden',
     },
     contentWriterText: {
-        textAlign: 'right',
-        // marginTop: 15,
-        height: 40,
-        fontSize: 18,
-        fontWeight: '500',
+        marginTop : 20,
+    },
+    dateText : {
+        marginBottom : 40
     },
     titlePart: {
         flexDirection: 'row',
@@ -199,14 +190,14 @@ const styles = StyleSheet.create({
     },
     titleText: {
         fontWeight: '900',
-        fontSize: 20,
+        fontSize: 19,
         marginBottom: 10,
     },
     priceText : {
-        fontSize: 20,
+        fontSize: 21,
     },
     contentText: {
-        fontSize: 17,
+        fontSize: 20,
     },
     contourLine: {
         borderBottomColor: '#9EAFD2', 
@@ -232,7 +223,7 @@ const styles = StyleSheet.create({
         fontWeight:'500',
     },
     commentText: {
-        fontSize: 17,
+        fontSize: 15,
     },
     input: {
         marginTop: 10,

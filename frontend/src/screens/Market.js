@@ -71,7 +71,6 @@ const Market = ({navigation}) => {
                   <View style={styles.imagePart}/>
                   : 
                   <View style={styles.imagePart}>
-                    {/* <Image source={require('../../assets/favicon.png')}/> */}
                     <Image 
                       style={styles.image}
                       source={{uri: item.image}}
