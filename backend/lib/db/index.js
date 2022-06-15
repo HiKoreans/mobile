@@ -6,7 +6,7 @@ const models = {};
 
 
 const initialize = async () => {
-    const sequelize = new Sequelize('mobile', 'postgres', 'postgres',
+    const sequelize = new Sequelize('mobile', 'postgres', 'so3598',
         {
             host: 'localhost',
             dialect: 'postgres',

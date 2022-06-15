@@ -51,8 +51,8 @@ const JobClick = ({route, navigation}) => {
         <Text style={styles.headerText}>구인광고</Text>
         <TouchableOpacity onPress={() => navigation.navigate('구인광고 작성 페이지')}>
           <Image 
-              style={styles.deleteIcon}
-              source={writeIcon}
+              style={styles.writeImage}
+              source={deleteIcon}
               resizeMode='contain'/>
         </TouchableOpacity>
       </View>
