@@ -21,6 +21,7 @@ const Container = styled.View`
   border-color: skyblue; */
 `;
 const List = styled.ScrollView`
+    width: '100%',
 `;
 
 const CommunityClick = ({route, navigation}) => {
