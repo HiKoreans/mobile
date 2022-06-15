@@ -44,6 +44,7 @@ const TabNavigation = () => {
         name="동네생활"
         component={Community}
         options={{
+          headerShown: false,
           tabBarLabel: '동네생활',
           tabBarIcon: props =>
             TabIcon({
@@ -56,6 +57,7 @@ const TabNavigation = () => {
         name="벼룩시장"
         component={Market}
         options={{
+          headerShown: false,
           tabBarLabel: '벼룩시장',
           tabBarIcon: props =>
             TabIcon({
@@ -68,6 +70,7 @@ const TabNavigation = () => {
         name="구인공고"
         component={Job}
         options={{
+          headerShown: false,
           tabBarLabel: '구인공고',
           tabBarIcon: props =>
             TabIcon({
