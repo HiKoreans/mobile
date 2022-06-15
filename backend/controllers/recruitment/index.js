@@ -36,6 +36,17 @@ const getClickRecruitment = async(req,res) => {
     }
 }
 
+const deleteClickRecruitment = async (req, res) => {
+    const recruitmentIdx = req.params.recruitmentIdx;
+    try{
+        const result = await recruitmentService.deleteClickRecruitment(recruitmentIdx);
+        res.send({data: 1});
+    }catch(err){
+        winston.error(`Unable to getClickRecruitment :`, err);
+        throw new Error('getClickRecruitment');
+    }
+}
+
 module.exports = {
-    createRecruitment, getRecruitment, getClickRecruitment
+    createRecruitment, getRecruitment, getClickRecruitment, deleteClickRecruitment
 }

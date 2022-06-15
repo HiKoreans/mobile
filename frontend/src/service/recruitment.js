@@ -25,6 +25,15 @@ const postRecruitment = async (userIdx, subject, content)=> {
   }
 }
 
+const deleteRecruitment = async (recruitmentIdx) => {
+  try{
+    const result = await axios.delete(`${address}/recruitment/${recruitmentIdx}`, {});
+  }catch(err){
+    console.log(err);
+  }
+}
+
 export default {
-    getRecruitmentList, postRecruitment
+    getRecruitmentList, postRecruitment,
+    deleteRecruitment
 }

@@ -31,6 +31,16 @@ const JobClick = ({route, navigation}) => {
     setRecruitmentUser(item.user);
   }
 
+  const _deleteRecruitment = async (navigation)=> {
+    try{
+        await recruitmentService.deleteRecruitment(item.boardIdx);
+        alert('성공적으로 삭제되었습니다.');
+        navigation.navigate(null);
+    }catch(err){
+
+    }
+  }
+
   useEffect(() => {
     getRecruitment();
 },[]);
@@ -40,28 +50,19 @@ const JobClick = ({route, navigation}) => {
       <View style={styles.header}>
         <Text style={styles.headerText}>구인광고</Text>
         <TouchableOpacity onPress={() => navigation.navigate('구인광고 작성 페이지')}>
-        <Image 
-            style={styles.writeImage}
-            source={writeIcon}
-            resizeMode='contain'/>
+          <Image 
+              style={styles.writeImage}
+              source={writeIcon}
+              resizeMode='contain'/>
         </TouchableOpacity>
       </View>
       <View style={styles.outer}>
         <List>
           <View style={styles.contents}>
-            <View style={styles.profile}>
-                {/* <Image 
-                    style={styles.profileImage}
-                    source={{uri: contents.profile}}
-                    resizeMode='contain'/> */}
-                <Text style={styles.contentWriterText}>작성자 : {recruitmentUser.nickName}</Text>
-            </View>
             <Text style={styles.titleText}>제목 : {recruitment.subject}</Text> 
-            {/* <Image 
-              style={styles.image}
-              source={{uri: contents.image}}
-              resizeMode='contain'/> */}
-              <Text style={styles.contentText}>{recruitment.content}</Text>
+            <Text style={styles.contentWriterText}>작성자 : {recruitmentUser.nickName}</Text>
+            <Text style={styles.created}>작성일 : {recruitment.created}</Text>
+            <Text style={styles.contentText}>{recruitment.content}</Text>
         </View>
         </List>
       </View>
@@ -70,6 +71,9 @@ const JobClick = ({route, navigation}) => {
 };
 
 const styles = StyleSheet.create({
+  contentText : {
+    marginTop : 30
+  },  
   outer: {
     marginTop: 10,
     marginBottom: 10,
@@ -122,6 +126,11 @@ const styles = StyleSheet.create({
     height: 40,
     fontSize: 18,
     fontWeight: '500',
+  },
+  created : {
+    fontSize: 18,
+    fontWeight: '500',
+    
   },
   titleText: {
     fontWeight: '900',

@@ -35,7 +35,8 @@ const JobAdd = ({navigation}) => {
         }
         try{
             await recruitmentService.postRecruitment(user.userIdx, subject, content);
-            navigation.goBack('구인광고 글 페이지');
+            alert('성공적으로 작성되었습니다.');
+            navigation.goBack(null);
         }catch(err){
             console.log(err);
         }

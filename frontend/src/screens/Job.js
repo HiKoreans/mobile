@@ -38,7 +38,8 @@ const Job = ({navigation}) => {
     try{
       const result = await recruitmentService.getRecruitmentList();
       for(let i = 0; i < result.data.length; i++){
-        result.data[i].content = await result.data[i].content.substr(0, 12);
+        result.data[i].tempIdx = i+1;
+        result.data[i].created = await result.data[i].created.substr(0,10);
       }
       setRecruitment(result.data);
     }catch(err){
@@ -76,14 +77,9 @@ const Job = ({navigation}) => {
               <View style={styles.content} key={index}>
                 <TouchableOpacity onPress={() => navigation.navigate('구인광고 글 페이지', {item})}>
                   <View style={styles.titlePart}>
-                    <Text style={styles.title}>{item.subject}</Text>
-                    <Text style={styles.title}>{item.content}</Text>
+                    <Text style={styles.title}>{item.tempIdx}. {item.subject}</Text>
                     <Text style={styles.writer}>{item.user.nickName}</Text>
                   </View>
-                  {/* <Image 
-                      style={styles.image}
-                      source={{uri: item.image}}
-                      resizeMode='contain'/> */}
                 </TouchableOpacity>
               </View>
           ))}
@@ -137,10 +133,10 @@ const styles = StyleSheet.create({
     color: 'red',
   },
   title: {
-
+    fontSize : 15
   },
   writer: {
-    textAlign: 'right',
+    textAlign: 'right', fontSize : 20
   },
   image: {
     // maxWidth: 100,
