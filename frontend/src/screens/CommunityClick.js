@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
     },
     titleText: {
         fontWeight: '900',
-        fontSize: 25,
+        fontSize: 23,
         marginBottom: 10,
     },
     nicknameText: {
@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
         marginBottom : 40
     },
     contentText: {
-        fontSize: 20,
+        fontSize: 17,
     },
     contourLine: {
         borderBottomColor: '#9EAFD2', 
@@ -228,11 +228,12 @@ const styles = StyleSheet.create({
         fontSize: 17,
     },
     writerText: {
-        fontSize: 25,
+        fontSize: 20,
+        marginBottom : 10,
         fontWeight:'500',
     },
     commentText: {
-        fontSize: 17,
+        fontSize: 15,
     },
     input: {
         marginTop: 10,

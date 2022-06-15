@@ -31,6 +31,7 @@ const Market = ({navigation}) => {
   const getSecondHandList = async ()=> {
     try{
       const result = await secondhandService.getSecondhandList();
+      
       setSeconhand(result.data);
     }catch(err){
       console.log(err);

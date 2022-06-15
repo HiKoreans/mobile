@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     fontSize : 15
   },
   writer: {
-    textAlign: 'right', fontSize : 20
+    textAlign: 'right', fontSize : 13
   },
   image: {
     // maxWidth: 100,

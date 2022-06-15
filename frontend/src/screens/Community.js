@@ -29,6 +29,7 @@ const Community = ({navigation}) => {
       const result = await boardService.getBoardList();
       let boardTemp = [];
       let noticeTemp = [];
+      
       for(let i = 0; i < result.data.length; i++){
         if(result.data[i].type == 0){
           boardTemp.push(result.data[i]);
@@ -80,7 +81,7 @@ const Community = ({navigation}) => {
                   <View style={styles.titlePart}>
                     <Text style={styles.title}>{item.subject}</Text>
                   </View>
-                  <Text style={styles.writer}>{item.content}</Text>
+                  <Text style={styles.writer}>{item.user.nickName}</Text>
                 </TouchableOpacity>
               </View>
           ))}
