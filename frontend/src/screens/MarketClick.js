@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     priceText : {
-        fontSize: 21,
+        fontSize: 14,
     },
     contentText: {
         fontSize: 20,

@@ -33,9 +33,9 @@ const JobClick = ({route, navigation}) => {
 
   const _deleteRecruitment = async (navigation)=> {
     try{
-        await recruitmentService.deleteRecruitment(item.boardIdx);
+        await recruitmentService.deleteRecruitment(item.recruitmentIdx);
         alert('성공적으로 삭제되었습니다.');
-        navigation.navigate(null);
+        navigation.goBack(null);
     }catch(err){
 
     }
@@ -49,7 +49,7 @@ const JobClick = ({route, navigation}) => {
     <Container>
       <View style={styles.header}>
         <Text style={styles.headerText}>구인광고</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('구인광고 작성 페이지')}>
+        <TouchableOpacity onPress={() => _deleteRecruitment(navigation)}>
           <Image 
               style={styles.writeImage}
               source={deleteIcon}

@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   title:{
-    fontSize: 30,
+    fontSize: 22,
     paddingBottom: 20,
     paddingLeft: 5,
   },
@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   content: {
-    fontSize: 20,
+    fontSize: 17,
   },
   contentWriter: {
     fontSize: 20,

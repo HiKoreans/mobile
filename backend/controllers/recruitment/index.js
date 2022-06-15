@@ -38,6 +38,7 @@ const getClickRecruitment = async(req,res) => {
 
 const deleteClickRecruitment = async (req, res) => {
     const recruitmentIdx = req.params.recruitmentIdx;
+    console.log(recruitmentIdx)
     try{
         const result = await recruitmentService.deleteClickRecruitment(recruitmentIdx);
         res.send({data: 1});
