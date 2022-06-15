@@ -23,10 +23,10 @@ const App = () => {
         <Stack.Screen name="HiKoreans" component={HiKoreans} options={{headerShown: false,}}/>
         <Stack.Screen name="동네생활 글 페이지" component={CommunityClick} options={{headerShown: false,}}/>
         <Stack.Screen name="벼룩시장 글 페이지" component={MarketClick} options={{headerShown: false,}}/>
-        <Stack.Screen name="구인공고 글 페이지" component={JobClick} options={{headerShown: false,}}/>
+        <Stack.Screen name="구인광고 글 페이지" component={JobClick} options={{headerShown: false,}}/>
         <Stack.Screen name="동네생활 작성 페이지" component={CommunityAdd} options={{headerShown: false,}}/>
         <Stack.Screen name="벼룩시장 작성 페이지" component={MarketAdd} options={{headerShown: false,}}/>
-        <Stack.Screen name="구인공고 작성 페이지" component={JobAdd} options={{headerShown: false,}}/>
+        <Stack.Screen name="구인광고 작성 페이지" component={JobAdd} options={{headerShown: false,}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
