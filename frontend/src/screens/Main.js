@@ -26,9 +26,9 @@ const Main = ({navigation}) => {
       let temp = [];
       for(let i = 0; i < 3; i++){
         temp[i] = result.data[i];
+        temp[i].no = i+1;
       }
       setBoard(temp);
-      console.log(temp);
     }catch(err){
       console.log(err);
     }
@@ -39,6 +39,7 @@ const Main = ({navigation}) => {
       let temp = [];
       for(let i = 0; i < 3; i++){
         temp[i] = result.data[i];
+        temp[i].no = i+1;
       }
       setSeconhand(temp);
     }catch(err){
@@ -51,6 +52,7 @@ const Main = ({navigation}) => {
       let temp = [];
       for(let i = 0; i < 3; i++){
         temp[i] = result.data[i];
+        temp[i].no = i+1;
       }
       setRecruitment(temp);
     }catch(err){
@@ -80,7 +82,7 @@ const Main = ({navigation}) => {
         {recruitment.map((item, index) => (
           <View style={styles.contentArea}>
           <Text style={styles.content} key={index} onPress={() => navigation.navigate('구인광고 글 페이지', { item })}>
-            {item.subject}
+            {item.no}. {item.subject}
           </Text>
           </View>
         ))}
@@ -92,9 +94,9 @@ const Main = ({navigation}) => {
         {board.map((item, index) => (
           <View style={styles.contentArea}>
           <Text style={styles.content} key={index} onPress={() => navigation.navigate('동네생활 글 페이지', { item })}>
-            {item.subject}
+          {item.no}. {item.subject}
           </Text>
-          <Text style={styles.contentWriter} key={index} onPress={() => navigation.navigate('동네생활 글 페이지', { item })}>
+          <Text style={styles.contentWriter} onPress={() => navigation.navigate('동네생활 글 페이지', { item })}>
             {item.user.nickName}
           </Text>
           </View>
@@ -108,9 +110,9 @@ const Main = ({navigation}) => {
         {seconhand.map((item, index) => (
           <View style={styles.contentArea}>
           <Text style={styles.content} key={index} onPress={() => navigation.navigate('벼룩시장 글 페이지', { item })}>
-            {item.subject}
+          {item.no}. {item.subject}
           </Text>
-          <Text style={styles.contentWriter} key={index} onPress={() => navigation.navigate('벼룩시장 글 페이지', { item })}>
+          <Text style={styles.contentWriter} onPress={() => navigation.navigate('벼룩시장 글 페이지', { item })}>
             {item.user.nickName}
           </Text>
           </View>
