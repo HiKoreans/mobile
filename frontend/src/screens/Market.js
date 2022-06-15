@@ -64,7 +64,7 @@ const Market = ({navigation}) => {
                       <Text style={styles.title}>{item.subject}</Text>
                     </View>
                     <View style={styles.pricePart}>
-                      <Text style={styles.content}>{item.content}</Text>
+                      <Text style={styles.price}>${item.price}</Text>
                     </View>
                   </View>
                   {item.image == '' ? 

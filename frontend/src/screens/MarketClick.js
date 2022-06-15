@@ -83,16 +83,16 @@ const MarketClick = ({route, navigation}) => {
                 <View style={styles.outer}>
                     <View style={styles.contents}>
                         <View style={styles.profile}>
-                            <Image 
+                            {/* <Image 
                                 style={styles.image}
                                 // source={{uri: contents.image}}
-                                resizeMode='contain'/>
+                                resizeMode='contain'/> */}
+                            <Text style={styles.contentWriterText}>글쓴이 : {secondhandUser.nickName}</Text>
                         </View>
                         <View style={styles.titlePart}>
                             <View style={styles.title}>
                                 <Text style={{...styles.type, color: secondhand.type == '0' ? 'blue' : 'red'}}>{secondhand.type == '0' ? '(팝니다)': '(삽니다)'}</Text>
                                 <Text style={styles.titleText}>{secondhand.subject}</Text> 
-                                <Text style={styles.contentWriterText}>글쓴이 : {secondhandUser.nickName}</Text>
                             </View>
                             <Text style={styles.priceText}>{secondhand.price}$</Text>
                         </View>
@@ -102,11 +102,17 @@ const MarketClick = ({route, navigation}) => {
                     <List>
                         {Object.values(comments)
                         .map((item, index) => (
-                                <View style={styles.comment} key={index}>
-                                    <View style={styles.contourLine}/>
-                                    <Text style={styles.writerText}>이름 : {item.user.nickName}</Text>
-                                    <Text style={styles.commentText}>내용 :  {item.comment}</Text>
-                                </View>
+                            index == "0" ?
+                            <View style={styles.comment} key={index}>
+                                <Text style={styles.writerText}>이름 : {item.user.nickName}</Text>
+                                <Text style={styles.commentText}>내용 :  {item.comment}</Text>
+                            </View>
+                            :
+                            <View style={styles.comment} key={index}>
+                                <View style={styles.contourLine}/>
+                                <Text style={styles.writerText}>이름 : {item.user.nickName}</Text>
+                                <Text style={styles.commentText}>내용 :  {item.comment}</Text>
+                            </View>
                         ))}
                     </List>
                     <View style={styles.input}>
