@@ -1,13 +1,14 @@
 const {models, Op} = require('../../lib/db');
 const winston = require('../../lib/common/winston');
 
-const createBoard = async (data)=> {
+const createBoard = async (data, seperateNotice)=> {
     let result;
     try{
         result = await models['board'].create({
             userIdx : data.userIdx,
             subject : data.subject,
             content : data.content,
+            type : seperateNotice
         });
         return result;
     }catch(err){
@@ -18,7 +19,13 @@ const createBoard = async (data)=> {
 const getBoardList = async ()=> {
     let result;
     try {
-        result = await models['board'].findAll();
+        result = await models['board'].findAll({
+            include : [
+                {
+                    model : models['user'],
+                }
+            ]
+        });
         return result;
     }catch(err){
         winston.error(`Unable to getBoard[servcie] :`, err);

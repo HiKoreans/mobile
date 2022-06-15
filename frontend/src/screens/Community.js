@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/native';
 import { StyleSheet, Text, View, TouchableOpacity, Dimensions, Image } from 'react-native';
 import AppLoading from 'expo-app-loading';
 import { StatusBar } from 'expo-status-bar';
 import writeIcon from '../images/write.png'
-
+import boardService from '../service/board';
+import { useIsFocused } from '@react-navigation/native';
 const { width : SCREEN_WIDTH } = Dimensions.get("window");
 
 const Container = styled.View`
@@ -19,24 +20,33 @@ const List = styled.ScrollView`
 `;
 
 const Community = ({navigation}) => {
+  const [board, setBoard] = useState([]);
+  const [notice, setNotice] = useState([]);
 
-  const [isReady, setIsReady] = useState(false);
-  const [contents, setContents] = useState({
-    //데이터 연동시 제거부분
-    '1': { id: '1', type: '0', title: '한국 거리두기 조정안 안내', content: '한국 거리두기 조정안 안내', writer: '관리자', image: 'https://picsum.photos/id/237/200/300', },
-    '2': { id: '2', type: '0', title: '미국 코로나19 백신접종 안내', content: '미국 코로나19 백신접종 안내', writer: '관리자', image: 'https://picsum.photos/id/237/200/300', },
-    '3': { id: '3', type: '1', title: '주변 한식당 맛집 추천해주세요~', content: '주변 한식당 맛집 추천해주세요~', writer: '햄버거질려', image: 'https://picsum.photos/id/237/200/300', },
-    '4': { id: '4', type: '1', title: 'abc University 재학 중인 분 계산가요?', content: 'abc University 재학 중인 분 계산가요?', writer: 'abcdef', image: 'https://picsum.photos/id/237/200/300', },
-    '5': { id: '5', type: '1', title: '유니버셜 스튜디오 꿀팁 공유합니다!', content: '유니버셜 스튜디오 꿀팁 공유합니다!', writer: '도날드덕', image: 'https://picsum.photos/id/237/200/300', },
-    '6': { id: '6', type: '1', title: '~~~~~~~~~~', content: '~~~~~~~~~~', writer: '동네생활', image: 'https://picsum.photos/id/237/200/300', },
-  });
+  const isFocused = useIsFocused();
 
-  const _loadData = async () => {
-    // const data = await AsyncStorage.getItem('data');
-    // setContents(JSON.parse(data || '{}'));
-  };
-
-  return isReady ? (
+  const getBoardList = async()=> {
+    try{
+      const result = await boardService.getBoardList();
+      let boardTemp = [];
+      let noticeTemp = [];
+      for(let i = 0; i < result.data.length; i++){
+        if(result.data[i].type == 0){
+          boardTemp.push(result.data[i]);
+        }else {
+          noticeTemp.push(result.data[i]);
+        }
+      }
+      setNotice(noticeTemp);
+      setBoard(boardTemp);
+    }catch(err){
+      console.log(err);
+    }
+  }
+  useEffect(() => {
+    getBoardList();
+  },[isFocused]);
+  return (
     <Container>
       <View style={styles.header}>
         <Text style={styles.headerText}>동네생활</Text>
@@ -48,17 +58,30 @@ const Community = ({navigation}) => {
         </TouchableOpacity>
       </View>
       <List>
-        <View style={styles.outer}>
-          {Object.values(contents)
-            .map(item => (
-              <View style={styles.content} key={item.id}>
-                <TouchableOpacity onPress={() => navigation.navigate('동네생활 글 페이지', { id: item.id, type: item.type, title: item.title, content: item.content, writer: item.writer, image: item.image })}>
-                {/* <TouchableOpacity> */}
+      
+      <View style={styles.outer}>
+          {Object.values(notice)
+            .map((item, index) => (
+              <View style={styles.content} key={index}>
+                <TouchableOpacity onPress={() => navigation.navigate('동네생활 글 페이지', { item })}>
                   <View style={styles.titlePart}>
-                    <Text style={styles.type}>{item.type == '0' ? '(공지) ' : ''}</Text>
-                    <Text style={styles.title}>{item.title}</Text>
+                    <Text style={styles.type}>(공지) </Text>
+                    <Text style={styles.title}>{item.subject}</Text>
                   </View>
-                  <Text style={styles.writer}>{item.writer}</Text>
+                  <Text style={styles.writer}>{item.conten}</Text>
+                </TouchableOpacity>
+              </View>
+          ))}
+        </View>
+        <View style={styles.outer}>
+          {Object.values(board)
+            .map((item, index) => (
+              <View style={styles.content} key={index}>
+                <TouchableOpacity onPress={() => navigation.navigate('동네생활 글 페이지', { item })}>
+                  <View style={styles.titlePart}>
+                    <Text style={styles.title}>{item.subject}</Text>
+                  </View>
+                  <Text style={styles.writer}>{item.content}</Text>
                 </TouchableOpacity>
               </View>
           ))}
@@ -66,13 +89,7 @@ const Community = ({navigation}) => {
       </List>
       <StatusBar style="auto" />
     </Container>
-  ) : (
-    <AppLoading
-      startAsync={_loadData}
-      onFinish={() => setIsReady(true)}
-      onError={console.error}
-    />
-  );
+  )
 };
 
 const styles = StyleSheet.create({

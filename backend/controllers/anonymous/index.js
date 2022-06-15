@@ -21,7 +21,6 @@ const signIn = async (req, res) => {
     // if(!data.id || !data.pw){
     //     return;
     // }
-    console.log(data)
     try{
         const result = await anonymousService.signIn(data.id, data.password);
         res.send(result);

@@ -4,27 +4,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ScrollView 
 import Promotion from '../images/PM.jpg';
 import boardService from '../service/board';
 
-// const [community, setCommunity] = useState('');
-// const [board, setBoard] = useState('');
 
-// const fetchCommunity = async () => {
-//   const result = await axios.get('URL',{
-//         //data
-//       });
-//   setCommunity(/* 데이터 */);
-// }
-
-// const fetchBoard = async () => {
-//   const result = await axios.get('URL',{
-//         //data
-//       });
-//       setBoard(/* 데이터 */);
-// }
-
-// useEffect(() => {
-//   fetchCommunity();
-//   fetchBoard();
-// },[]);
 
 
 const Main = () => {
