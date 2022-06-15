@@ -18,10 +18,10 @@ const Container = styled.View`
 
 const CommunityAdd = ({navigation}) => {
     
-    const [user, setUser] = useState({});
     const [subject, setSubject] = useState('');
     const [content, setContent] = useState('');
-
+    const [user, setUser] = useState({});
+    
     const getUser = async () => {
         const temp = await AsyncStorage.getItem('accesstoken');
         const temp2 =  JSON.parse(temp);

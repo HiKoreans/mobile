@@ -18,7 +18,14 @@ const createRecruitment = async(data) => {
 const getRecruitmentList = async ()=> {
     let result;
     try {                      
-        result = await models['recruitment'].findAll();
+        result = await models['recruitment'].findAll({
+            include : [
+                {
+                    model : models['user'],
+                }
+            ],
+            order: [['recruitmentIdx', 'DESC']]
+        });
         return result;
     }catch(err){
         winston.error(`Unable to getRecruitment[servcie] :`, err);

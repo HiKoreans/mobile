@@ -26,7 +26,8 @@ const getSecondhandList = async ()=> {
                 {
                     model : models['user'],
                 }
-            ]
+            ],
+            order: [['secondhandIdx', 'DESC']]
         });
         return result;
     }catch(err){

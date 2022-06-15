@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/native';
 import { StyleSheet, Text, View, TouchableOpacity, Dimensions, Image } from 'react-native';
-import AppLoading from 'expo-app-loading';
 import { StatusBar } from 'expo-status-bar';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import writeIcon from '../images/write.png'
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
-
+import recruitmentService from '../service/recruitment';
 const { width : SCREEN_WIDTH, height : SCREEN_HEIGHT } = Dimensions.get("window");
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Container = styled.View`
   flex: 1;
@@ -18,59 +18,44 @@ const Container = styled.View`
 
 const JobAdd = ({navigation}) => {
 
-    const [corporation, setCorporation] = useState('');
-    const [title, setTitle] = useState('');
+    const [subject, setSubject] = useState('');
     const [content, setContent] = useState('');
-    const [contents, setContents] = useState({
-        //데이터 연동시 제거부분
-        '1': { id: '1', title: 'Project Manager', content: 'Netmarble US에서 Project Manager를 모집합니다.', writer: 'Netmarble US', profile: 'https://picsum.photos/id/237/200/300', image: 'https://picsum.photos/id/237/200/300' },
-        '2': { id: '2', title: 'Project Manager', content: 'Netmarble US에서 Project Manager를 모집합니다.', writer: 'Netmarble US', profile: 'https://picsum.photos/id/237/200/300', image: 'https://picsum.photos/id/237/200/300' },
-        '3': { id: '3', title: 'Project Manager', content: 'Netmarble US에서 Project Manager를 모집합니다.', writer: 'Netmarble US', profile: 'https://picsum.photos/id/237/200/300', image: 'https://picsum.photos/id/237/200/300' },
-        '4': { id: '4', title: 'Project Manager', content: 'Netmarble US에서 Project Manager를 모집합니다.', writer: 'Netmarble US', profile: 'https://picsum.photos/id/237/200/300', image: 'https://picsum.photos/id/237/200/300' },
-        '5': { id: '5', title: 'Project Manager', content: 'Netmarble US에서 Project Manager를 모집합니다.', writer: 'Netmarble US', profile: 'https://picsum.photos/id/237/200/300', image: 'https://picsum.photos/id/237/200/300' },
-        '6': { id: '6', title: 'Project Manager', content: 'Netmarble US에서 Project Manager를 모집합니다.', writer: 'Netmarble US', profile: 'https://picsum.photos/id/237/200/300', image: 'https://picsum.photos/id/237/200/300' },
-      });
+    const [user, setUser] = useState({});
     
-
-    const _addContents = (navigation) => {
-        var lastID = '0';
-        Object.values(contents).map(item => {
-            lastID = item.id;
-        })
-        const newID = String(parseInt(lastID)+1);
-        //관리자 식별 필요
-        const newContentObject = {
-            [newID] : { id: newID, title: title, content: content, writer: corporation, profile: 'https://picsum.photos/id/237/200/300', image: 'https://picsum.photos/id/237/200/300' },
-            // [newID] : { id: newID, type: '0', title: title, content: content, writer: 'user.nickname' },
-        };
-        _saveContents({...contents, ...newContentObject});
-        navigation.goBack(null);
+    const getUser = async () => {
+        const temp = await AsyncStorage.getItem('accesstoken');
+        const temp2 =  JSON.parse(temp);
+        temp2.created =await temp2.created.substr(0, 10);
+        setUser(temp2);
     };
 
-    const _saveContents = async contents => {
-        // 서버에 저장
-        // try {
-        //     await AsyncStorage.setItem('tasks', JSON.stringify(tasks));
-        //     setTasks(tasks);
-        //   } catch (e) {
-        //     console.error(e);
-        //   }
+    const _addContents = async (navigation) => {
+        if(!subject || !content){
+            alert('제목이나 내용이 입력되지 않았습니다. 다시 입력해주세요.'); return;
+        }
+        try{
+            await recruitmentService.postRecruitment(user.userIdx, subject, content);
+            navigation.goBack('구인광고 글 페이지');
+        }catch(err){
+            console.log(err);
+        }
     };
 
-    const _corporationTextChange = text => {
-        setCorporation(text);
-    };
     const _handleTitleTextChange = text => {
-        setTitle(text);
+        setSubject(text);
     };
     const _handleContentTextChange = text => {
         setContent(text);
     };
 
+    useEffect(() => {
+        getUser();
+    },[]);
+
     return (
         <Container>
             <View style={styles.header}>
-                <Text style={styles.headerText}>벼룩시장</Text>
+                <Text style={styles.headerText}>구인광고</Text>
                 <TouchableOpacity>
                 <Image 
                     style={styles.writeImage}
@@ -81,18 +66,12 @@ const JobAdd = ({navigation}) => {
             <KeyboardAwareScrollView>
                 <View style={styles.outer}>
                     <View style={styles.form}>
-                        <View style={styles.corporation}>
-                            <Text style={styles.corporationText}>기업명 : </Text>
-                            <TextInput 
-                                style={styles.corporationInput}
-                                onChangeText={_corporationTextChange}/>
-                        </View>
                         <View style={styles.title}>
                             <TextInput 
                                 style={styles.titleText} 
                                 placeholder='제목 작성'
                                 onChangeText={_handleTitleTextChange}
-                                value={title}/>
+                                value={subject}/>
                         </View>
                         <View style={styles.content}>
                             <ScrollView style={styles.contentScroll}>

@@ -24,7 +24,8 @@ const getBoardList = async ()=> {
                 {
                     model : models['user'],
                 }
-            ]
+            ],
+            order: [['boardIdx', 'DESC']]
         });
         return result;
     }catch(err){

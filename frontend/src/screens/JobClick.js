@@ -5,8 +5,9 @@ import AppLoading from 'expo-app-loading';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { StatusBar } from 'expo-status-bar';
 import writeIcon from '../images/write.png'
-
 const { width : SCREEN_WIDTH, height : SCREEN_HEIGHT } = Dimensions.get("window");
+import recruitmentService from '../service/recruitment';
+
 
 const Container = styled.View`
   flex: 1;
@@ -21,27 +22,18 @@ const List = styled.ScrollView`
 
 const JobClick = ({route, navigation}) => {
 
-  const item = route.params;
+  const item = route.params.item;
+  const [recruitment, setRecruitment] = useState({});
+  const [recruitmentUser, setRecruitmentUser] = useState({});
 
-  var id = '';
-  var title = '';
-  var content = '';
-  var writer = '';
-  var profile = '';
-  var image = '';
-  Object.values(item).map(item => {
-      id = item.id;
-      title = item.title;
-      content = item.content;
-      writer = item.writer;
-      profile = item.profile;
-      image = item.image;
-  })
+  const getRecruitment = ()=> {
+    setRecruitment(item);
+    setRecruitmentUser(item.user);
+  }
 
-
-  const [contents, setContents] = useState({
-    id: id, title: title, content: content, writer: writer, profile: profile, image: image,
-  });
+  useEffect(() => {
+    getRecruitment();
+},[]);
 
   return (
     <Container>
@@ -58,18 +50,18 @@ const JobClick = ({route, navigation}) => {
         <List>
           <View style={styles.contents}>
             <View style={styles.profile}>
-                <Image 
+                {/* <Image 
                     style={styles.profileImage}
                     source={{uri: contents.profile}}
-                    resizeMode='contain'/>
-                <Text style={styles.contentWriterText}>{contents.writer}</Text>
+                    resizeMode='contain'/> */}
+                <Text style={styles.contentWriterText}>작성자 : {recruitmentUser.nickName}</Text>
             </View>
-            <Text style={styles.titleText}>{contents.title}</Text> 
-            <Image 
+            <Text style={styles.titleText}>제목 : {recruitment.subject}</Text> 
+            {/* <Image 
               style={styles.image}
               source={{uri: contents.image}}
-              resizeMode='contain'/>
-              <Text style={styles.contentText}>{contents.content}</Text>
+              resizeMode='contain'/> */}
+              <Text style={styles.contentText}>{recruitment.content}</Text>
         </View>
         </List>
       </View>
