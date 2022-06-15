@@ -74,7 +74,7 @@ const Main = ({navigation}) => {
                     <Image source={germany} style={styles.image}/>
         </View>
       </View>
-    <View style={styles.container}>
+      <View style={styles.container}>
         <View style={styles.board}>
         <Text style={styles.title}>구인광고</Text>
         {recruitment.map((item, index) => (
