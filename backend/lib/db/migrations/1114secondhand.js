@@ -30,6 +30,9 @@ module.exports = {
       type: {
         type: Sequelize.INTEGER
       },
+      price: {
+        type: Sequelize.INTEGER
+      },
     });
   },
 

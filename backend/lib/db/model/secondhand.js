@@ -29,6 +29,9 @@ const create = async (sequelize) => {
       type: {
         type: DataTypes.INTEGER
       },
+      price: {
+        type: DataTypes.INTEGER
+      },
     }, {
       // Other model options go here
       timestamps: false,
