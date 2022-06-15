@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Dimensions, Image, TextInput 
 import AppLoading from 'expo-app-loading';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { StatusBar } from 'expo-status-bar';
-import writeIcon from '../images/write.png'
+import deleteIcon from '../images/delete.png'
 const { width : SCREEN_WIDTH, height : SCREEN_HEIGHT } = Dimensions.get("window");
 import recruitmentService from '../service/recruitment';
 
@@ -51,7 +51,7 @@ const JobClick = ({route, navigation}) => {
         <Text style={styles.headerText}>구인광고</Text>
         <TouchableOpacity onPress={() => navigation.navigate('구인광고 작성 페이지')}>
           <Image 
-              style={styles.writeImage}
+              style={styles.deleteIcon}
               source={writeIcon}
               resizeMode='contain'/>
         </TouchableOpacity>
