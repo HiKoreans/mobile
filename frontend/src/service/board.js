@@ -1,9 +1,6 @@
 import axios from "axios";
 import address from '../tools/Address';
 
-// const address = 'http://192.168.0.10:8080'
-
-
 const getBoardList = async()=> {
     try{
         const result = await axios.get(`${address}/board`,{

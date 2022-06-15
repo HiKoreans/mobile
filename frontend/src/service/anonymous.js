@@ -1,7 +1,5 @@
 import axios from "axios";
-
-
-const address = 'http://192.168.0.10:8080'
+import address from '../tools/Address';
 
 const signin = async(id, password)=> {
     try{
