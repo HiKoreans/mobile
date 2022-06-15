@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
   },
   header: {
     paddingTop: 40,
-    width: SCREEN_WIDTH*0.9,
+    width: 'SCREEN_WIDTH*0.9',
     flexDirection: 'row',
     justifyContent: 'space-between',
     borderBottomColor: '#000000', 

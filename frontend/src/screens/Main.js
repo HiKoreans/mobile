@@ -15,7 +15,7 @@ const Container = styled.View`
   background-color: #E7EBF4;
 `;
 
-const Main = () => {
+const Main = ({navigation}) => {
   const [board, setBoard]= useState([]);
   const [seconhand, setSeconhand]= useState([]);
   const [recruitment, setRecruitment]= useState([]);
@@ -28,6 +28,7 @@ const Main = () => {
         temp[i] = result.data[i];
       }
       setBoard(temp);
+      console.log(temp);
     }catch(err){
       console.log(err);
     }
@@ -75,34 +76,46 @@ const Main = () => {
       </View>
     <View style={styles.container}>
         <View style={styles.board}>
-        <Text style={styles.title}>구인공고</Text>
-        
+        <Text style={styles.title}>구인광고</Text>
         {recruitment.map((item, index) => (
-          <Text style={styles.content} key={index}>
+          <View style={styles.contentArea}>
+          <Text style={styles.content} key={index} onPress={() => navigation.navigate('구인광고 글 페이지', { item })}>
             {item.subject}
           </Text>
+          </View>
         ))}
         <View style={styles.contourLine}/>
       </View>
 
       <View style={styles.board}>
         <Text style={styles.title}>동네생활</Text>
-        
         {board.map((item, index) => (
-          <Text style={styles.content} key={index}>
+          <View style={styles.contentArea}>
+          <Text style={styles.content} key={index} onPress={() => navigation.navigate('동네생활 글 페이지', { item })}>
             {item.subject}
           </Text>
+          <Text style={styles.contentWriter} key={index} onPress={() => navigation.navigate('동네생활 글 페이지', { item })}>
+            {item.user.nickName}
+          </Text>
+          </View>
         ))}
         <View style={styles.contourLine}/>
       </View>
 
       <View style={styles.board}>
         <Text style={styles.title}>벼룩시장</Text>
+        {/* <Text style={styles.contentArea}> */}
         {seconhand.map((item, index) => (
-          <Text style={styles.content} key={index}>
+          <View style={styles.contentArea}>
+          <Text style={styles.content} key={index} onPress={() => navigation.navigate('벼룩시장 글 페이지', { item })}>
             {item.subject}
           </Text>
+          <Text style={styles.contentWriter} key={index} onPress={() => navigation.navigate('벼룩시장 글 페이지', { item })}>
+            {item.user.nickName}
+          </Text>
+          </View>
         ))}
+        {/* </Text> */}
       </View>
     </View>
     </ScrollView>
@@ -157,11 +170,20 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 20,
   },
-  content: {
-    fontSize: 20,
+  contentArea: {
     padding: 10,
     marginLeft: 15,
+    marginRight: 15,
+    justifyContent: 'space-between',
+    flexDirection: 'row',
   },
+  content: {
+    fontSize: 20,
+  },
+  contentWriter: {
+    fontSize: 20,
+    textAlign: 'right',
+  }
 })
 
 export default Main;

@@ -1,7 +1,20 @@
 import React, {useState} from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView} from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Dimensions, Image} from 'react-native';
 import axios from 'axios';
 import anonymous from '../service/anonymous'
+import korea from '../images/southkorea.png';
+import germany from '../images/germany.png';
+import styled from 'styled-components/native';
+
+const { width : SCREEN_WIDTH, height : SCREEN_HEIGHT } = Dimensions.get("window");
+
+const Container = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  background-color: #E7EBF4;
+`;
+
 const SignUp = () => {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
@@ -41,7 +54,15 @@ const SignUp = () => {
   }
 
   return (
+    <Container>
     <ScrollView style={styles.scroll}>
+      <View style={styles.header}>
+        <Text style={styles.headerText}>회원가입</Text>
+        <View style={styles.imageArea}>
+                    <Image source={korea} style={styles.image}/>
+                    <Image source={germany} style={styles.image}/>
+        </View>
+      </View>
       <View style={styles.container}>
                 <View style={styles.formArea}>
                   <Text style={styles.formName}>아이디</Text>
@@ -95,12 +116,34 @@ const SignUp = () => {
                 </View>
             </View>
             </ScrollView>
+            </Container>
   );
 };
 
 const styles = StyleSheet.create({
   scroll:{
     backgroundColor: '#E7EBF4',
+  },
+  imageArea:{
+    flexDirection: 'row',
+  },
+  image: {
+    width: 30,
+    height: 30,
+    marginLeft: 5,
+    marginRight: 5,
+  },
+  header: {
+    paddingTop: 40,
+    width: SCREEN_WIDTH*0.9,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderBottomColor: '#000000', 
+    borderBottomWidth: 3, 
+  },
+  headerText: {
+    fontSize: 30,
+    fontWeight: '900',
   },
   container: {
         backgroundColor: '#E7EBF4',
