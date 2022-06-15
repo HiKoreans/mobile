@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/native';
 import { StyleSheet, Text, View, TouchableOpacity, Dimensions, Image, TextInput, Alert } from 'react-native';
 import AppLoading from 'expo-app-loading';
@@ -25,13 +25,28 @@ const List = styled.ScrollView`
 
 `;
 
-const CommunityClick = ({navigation}) => {
+const CommunityClick = ({route, navigation}) => {
 
     const [isReady, setIsReady] = useState(false);
     const [newComment, setNewComment] = useState('');
-    const [content, setContent] = useState({
+    // const [contents, setContents] = useState({
+    //     //데이터 연동시 제거부분
+    //     '1': { id: '1', type: '0', title: '한국 거리두기 조정안 안내', content: '한국 거리두기 조정안 안내', writer: '관리자' },
+    //     '2': { id: '2', type: '0', title: '미국 코로나19 백신접종 안내', content: '미국 코로나19 백신접종 안내', writer: '관리자' },
+    //     '3': { id: '3', type: '1', title: '주변 한식당 맛집 추천해주세요~', content: '주변 한식당 맛집 추천해주세요~', writer: '햄버거질려' },
+    //     '4': { id: '4', type: '1', title: 'abc University 재학 중인 분 계산가요?', content: 'abc University 재학 중인 분 계산가요?', writer: 'abcdef' },
+    //     '5': { id: '5', type: '1', title: '유니버셜 스튜디오 꿀팁 공유합니다!', content: '유니버셜 스튜디오 꿀팁 공유합니다!', writer: '도날드덕' },
+    //     '6': { id: '6', type: '1', title: '~~~~~~~~~~', content: '~~~~~~~~~~', writer: '동네생활' },
+    // });
+    const {id,type,title,content,writer,image} = route.params;
+    // setContent(item);
+    console.log(id);
+    // setContents({id: id, type: type, title: title, content: content, writer: writer, image: image, });
+    const [contents, setContents] = useState({
+        id: id, type: type,  title: title, content: content, writer: writer, image: image
       //데이터 연동시 제거부분
-      image: 'https://picsum.photos/id/237/200/300', writer: '햄버거질려', title: '주변 한식당 맛집 추천해주세요~', content: '요즘 햄버거를 너무 많이 먹었더니 질리네요..\n동네 주변 한식당 맛집 아시는 분 추천 부탁드려요!'
+        // id: '1', type: '0', title: '한국 거리두기 조정안 안내', content: '한국 거리두기 조정안 안내', writer: '관리자',
+    //   image: 'https://picsum.photos/id/237/200/300', writer: '햄버거질려', title: '주변 한식당 맛집 추천해주세요~', content: '요즘 햄버거를 너무 많이 먹었더니 질리네요..\n동네 주변 한식당 맛집 아시는 분 추천 부탁드려요!'
     });
     const [comments, setComments] = useState({
         //데이터 연동시 제거부분
@@ -42,11 +57,35 @@ const CommunityClick = ({navigation}) => {
         // '6': { id: '6', type: '1', title: '~~~~~~~~~~', writer: '동네생활' },
     });
   
+    
+    // setContent(item);
+    console.log(id);
+    // setContents({id: id, type: type, title: title, content: content, writer: writer, image: image, });
+
+    const [user, setUser] = useState({});
+
+    const fetchUser = async () => {
+        const temp = await AsyncStorage.getItem('accesstoken');
+        const temp2 =  JSON.parse(temp);
+        temp2.created =await temp2.created.substr(0, 10);
+        setUser(temp2);
+    };
+
+    useEffect(() => {
+        fetchUser();
+    },[]);
+
     const _loadData = async () => {
       // const data = await AsyncStorage.getItem('data');
       // setContents(JSON.parse(data || '{}'));
     //   setComments();
     };
+
+    // const _finishLoading = () => {
+    //     console.log("로딩 끝");
+    //     setIsReady(true);
+    //     setContents({id: id, type: type, title: title, content: content, writer: writer, image: image, });
+    // }
 
     const _addComment = () => {
         var lastID = '0';
@@ -55,7 +94,8 @@ const CommunityClick = ({navigation}) => {
         })
         const newID = String(parseInt(lastID)+1);
         const newCommentObject = {
-            [newID] : { id: newID, writer: '사용자', comment: newComment },
+            [newID] : { id: newID, writer: user.nickname, comment: newComment },
+            // [newID] : { id: newID, writer: 'user.nickname', comment: newComment },
         };
         setNewComment('');
         setComments({ ...comments, ...newCommentObject });
@@ -96,12 +136,12 @@ const CommunityClick = ({navigation}) => {
                         <View style={styles.profile}>
                             <Image 
                                 style={styles.image}
-                                source={{uri: content.image}}
+                                source={{uri: contents.image}}
                                 resizeMode='contain'/>
-                            <Text style={styles.contentWriterText}>{content.writer}</Text>
+                            <Text style={styles.contentWriterText}>{contents.writer}</Text>
                         </View>
-                        <Text style={styles.titleText}>{content.title}</Text>
-                        <Text style={styles.contentText}>{content.content}</Text>
+                        <Text style={styles.titleText}>{contents.title}</Text>
+                        <Text style={styles.contentText}>{contents.content}</Text>
                     </View>
                     <View style={styles.contourLine}/>
                     <List>
@@ -171,7 +211,7 @@ const styles = StyleSheet.create({
         fontWeight: '900',
     },
     contents: {
-
+        width: '100%',
     },
     profile: {
         flexDirection: 'row',
@@ -183,6 +223,7 @@ const styles = StyleSheet.create({
         width: 60,
         height: 60, 
         marginRight: 10,
+        
         // overflow: 'hidden',
     },
     contentWriterText: {

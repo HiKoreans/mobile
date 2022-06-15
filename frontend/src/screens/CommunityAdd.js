@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/native';
 import { StyleSheet, Text, View, TouchableOpacity, Dimensions, Image } from 'react-native';
 import AppLoading from 'expo-app-loading';
@@ -30,6 +30,19 @@ const CommunityAdd = ({navigation}) => {
         '5': { id: '5', type: '1', title: '유니버셜 스튜디오 꿀팁 공유합니다!', content: '유니버셜 스튜디오 꿀팁 공유합니다!', writer: '도날드덕' },
         '6': { id: '6', type: '1', title: '~~~~~~~~~~', content: '~~~~~~~~~~', writer: '동네생활' },
     });
+    
+    const [user, setUser] = useState({});
+
+    const fetchUser = async () => {
+        const temp = await AsyncStorage.getItem('accesstoken');
+        const temp2 =  JSON.parse(temp);
+        temp2.created =await temp2.created.substr(0, 10);
+        setUser(temp2);
+    };
+
+    useEffect(() => {
+        fetchUser();
+    },[]);
 
     const _loadData = async () => {
         // const data = await AsyncStorage.getItem('data');
@@ -44,7 +57,8 @@ const CommunityAdd = ({navigation}) => {
         const newID = String(parseInt(lastID)+1);
         //관리자 식별 필요
         const newContentObject = {
-            [newID] : { id: newID, type: '0', title: title, content: content, writer: '사용자' },
+            [newID] : { id: newID, type: user.nickname == '관리자' ? '0' : '1', title: title, content: content, writer: user.nickname },
+            // [newID] : { id: newID, type: '0', title: title, content: content, writer: 'user.nickname' },
         };
         _saveContents({...contents, ...newContentObject});
         navigation.goBack(null);

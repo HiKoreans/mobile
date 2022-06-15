@@ -23,12 +23,12 @@ const Community = ({navigation}) => {
   const [isReady, setIsReady] = useState(false);
   const [contents, setContents] = useState({
     //데이터 연동시 제거부분
-    '1': { id: '1', type: '0', title: '한국 거리두기 조정안 안내', writer: '관리자', content: '한국 거리두기 조정안 안내' },
-    '2': { id: '2', type: '0', title: '미국 코로나19 백신접종 안내', writer: '관리자', content: '미국 코로나19 백신접종 안내' },
-    '3': { id: '3', type: '1', title: '주변 한식당 맛집 추천해주세요~', writer: '햄버거질려', content: '주변 한식당 맛집 추천해주세요~' },
-    '4': { id: '4', type: '1', title: 'abc University 재학 중인 분 계산가요?', writer: 'abcdef', content: 'abc University 재학 중인 분 계산가요?' },
-    '5': { id: '5', type: '1', title: '유니버셜 스튜디오 꿀팁 공유합니다!', writer: '도날드덕', content: '유니버셜 스튜디오 꿀팁 공유합니다!' },
-    '6': { id: '6', type: '1', title: '~~~~~~~~~~', writer: '동네생활', content: '~~~~~~~~~~' },
+    '1': { id: '1', type: '0', title: '한국 거리두기 조정안 안내', content: '한국 거리두기 조정안 안내', writer: '관리자', image: 'https://picsum.photos/id/237/200/300', },
+    '2': { id: '2', type: '0', title: '미국 코로나19 백신접종 안내', content: '미국 코로나19 백신접종 안내', writer: '관리자', image: 'https://picsum.photos/id/237/200/300', },
+    '3': { id: '3', type: '1', title: '주변 한식당 맛집 추천해주세요~', content: '주변 한식당 맛집 추천해주세요~', writer: '햄버거질려', image: 'https://picsum.photos/id/237/200/300', },
+    '4': { id: '4', type: '1', title: 'abc University 재학 중인 분 계산가요?', content: 'abc University 재학 중인 분 계산가요?', writer: 'abcdef', image: 'https://picsum.photos/id/237/200/300', },
+    '5': { id: '5', type: '1', title: '유니버셜 스튜디오 꿀팁 공유합니다!', content: '유니버셜 스튜디오 꿀팁 공유합니다!', writer: '도날드덕', image: 'https://picsum.photos/id/237/200/300', },
+    '6': { id: '6', type: '1', title: '~~~~~~~~~~', content: '~~~~~~~~~~', writer: '동네생활', image: 'https://picsum.photos/id/237/200/300', },
   });
 
   const _loadData = async () => {
@@ -52,7 +52,7 @@ const Community = ({navigation}) => {
           {Object.values(contents)
             .map(item => (
               <View style={styles.content} key={item.id}>
-                <TouchableOpacity onPress={() => navigation.navigate('동네생활 글 페이지')}>
+                <TouchableOpacity onPress={() => navigation.navigate('동네생활 글 페이지', { id: item.id, type: item.type, title: item.title, content: item.content, writer: item.writer, image: item.image })}>
                 {/* <TouchableOpacity> */}
                   <View style={styles.titlePart}>
                     <Text style={styles.type}>{item.type == '0' ? '(공지) ' : ''}</Text>
