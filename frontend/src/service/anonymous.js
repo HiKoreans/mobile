@@ -1,6 +1,4 @@
 import axios from "axios";
-
-
 import address from '../tools/Address';
 
 const signin = async(id, password)=> {

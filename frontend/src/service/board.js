@@ -1,9 +1,6 @@
 import axios from "axios";
 import address from '../tools/Address';
 
-
-
-
 const getBoardList = async()=> {
     try{
         const result = await axios.get(`${address}/board`,{

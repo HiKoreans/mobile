@@ -1,5 +1,7 @@
 {
   "dependencies": {
-    "@react-navigation/native": "^6.0.10"
+    "@react-navigation/native": "^6.0.10",
+    "sequelize": "^6.20.1",
+    "sequelize-cli": "^6.4.1"
   }
 }

@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import anonymousService from '../service/anonymous'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import korea from '../images/southkorea.png';
+import germany from '../images/germany.png';
+
 function LoginScreen({navigation}) {
 
   const [id, setId] = useState('a');
@@ -34,6 +37,10 @@ function LoginScreen({navigation}) {
   return (
     <View style={styles.container}>
                 <View style={styles.titleArea}>
+                  <View style={styles.imageArea}>
+                    <Image source={korea} style={styles.image}/>
+                    <Image source={germany} style={styles.image}/>
+                    </View>
                     <Text style={styles.title}>HiKoreans</Text>
                 </View>
                 <View style={styles.formArea}>
@@ -77,42 +84,52 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: '100%',
         height: '100%',
-        
+        paddingBottom: '10%',
   },
   titleArea: {
       width: '100%',
       alignItems: 'center',
-      padding: 80,
   },
   title: {
-    fontSize: 40,
+    fontSize: 50,
+  },
+  imageArea:{
+    flexDirection: 'row',
+    paddingBottom: 15,
+  },
+  image: {
+    width: 60,
+    height: 60,
+    marginLeft: 20,
+    marginRight: 20,
   },
   formArea: {
       width: '100%',
       alignItems: 'center',
-      padding: 30,
+      paddingLeft: 20,
+      paddingRight: 20,
+      paddingTop: 20,
+      marginTop: 15,
   },
   textForm: {
       backgroundColor: '#9EAFD2',
       borderRadius: 10,
-      width: '60%',
-      height: 30,
+      width: '80%',
+      height: 40,
       paddingLeft: 5,
       paddingRight: 5,
       marginBottom: 15,
   },
   buttonArea: {
     width: '100%',
-    height: '8%',
+    height: '15%',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 15,
   },
   signupButton: {
-    paddingBottom: 30,
     justifyContent: 'center',
     alignItems: 'center',
-    height: 10,
+    height: 30,
   },
   signupbuttonTitle: {
     fontSize: 15,
@@ -120,10 +137,11 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: "#9EAFD2",
     borderRadius: 10,
-    width: "10%",
-    height: 30,
+    width: "35%",
+    height: 40,
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 20,
 },
 buttonTitle: {
     color: 'black',

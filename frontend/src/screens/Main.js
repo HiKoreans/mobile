@@ -1,12 +1,19 @@
 import React, {useEffect, useState} from 'react';
-import styled from 'styled-components/native';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native';
-import Promotion from '../images/PM.jpg';
 import boardService from '../service/board';
+import styled from 'styled-components/native';
+import korea from '../images/southkorea.png';
+import germany from '../images/germany.png';
 import secondhandService from '../service/secondhand';
 import recruitmentService from '../service/recruitment';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ScrollView, Dimensions } from 'react-native';
+const { width : SCREEN_WIDTH, height : SCREEN_HEIGHT } = Dimensions.get("window");
 
-
+const Container = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  background-color: #E7EBF4;
+`;
 
 const Main = () => {
   const [board, setBoard]= useState([]);
@@ -56,9 +63,16 @@ const Main = () => {
     getSecondhandList();
     getRecruitmentList();
   },[]);
-
   return (
-    <ScrollView>
+    <Container>
+    <ScrollView style={styles.scroll}>
+      <View style={styles.header}>
+        <Text style={styles.headerText}>HiKoreans</Text>
+        <View style={styles.imageArea}>
+                    <Image source={korea} style={styles.image}/>
+                    <Image source={germany} style={styles.image}/>
+        </View>
+      </View>
     <View style={styles.container}>
         <View style={styles.board}>
         <Text style={styles.title}>구인공고</Text>
@@ -92,19 +106,41 @@ const Main = () => {
       </View>
     </View>
     </ScrollView>
+    </Container>
   );
 };
 
 const styles = StyleSheet.create({
+  scroll:{
+    backgroundColor: '#E7EBF4',
+  },
+  imageArea:{
+    flexDirection: 'row',
+  },
+  image: {
+    width: 30,
+    height: 30,
+    marginLeft: 5,
+    marginRight: 5,
+  },
+  header: {
+    paddingTop: 40,
+    width: SCREEN_WIDTH*0.9,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderBottomColor: '#000000', 
+    borderBottomWidth: 3, 
+  },
+  headerText: {
+    fontSize: 30,
+    fontWeight: '900',
+  },
   container: {
         backgroundColor: '#E7EBF4',
-        paddingLeft: '10%',
-        paddingRight: '10%',
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%',
         height: '100%',
-        
   },
   board:{
     width: '100%',
@@ -112,17 +148,19 @@ const styles = StyleSheet.create({
   title:{
     fontSize: 30,
     paddingBottom: 20,
-    paddingTop: 20,
+    paddingLeft: 5,
   },
   contourLine: {
     borderBottomColor: '#9EAFD2', 
     borderBottomWidth: 5, 
     width: '100%',
     padding: 10,
+    marginBottom: 20,
   },
   content: {
     fontSize: 20,
     padding: 10,
+    marginLeft: 15,
   },
 })
 
