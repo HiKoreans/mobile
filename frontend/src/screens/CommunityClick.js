@@ -21,7 +21,7 @@ const Container = styled.View`
   border-color: skyblue; */
 `;
 const List = styled.ScrollView`
-    width: '100%',
+    /* width: '100%', */
 `;
 
 const CommunityClick = ({route, navigation}) => {
@@ -94,12 +94,12 @@ const CommunityClick = ({route, navigation}) => {
             <KeyboardAwareScrollView>
                 <View style={styles.outer}>
                     <View style={styles.contents}>
-                        <View style={styles.profile}>
+                        {/* <View style={styles.profile}>
                             <Text style={styles.contentWriterText}>{board.writer}</Text>
-                        </View>
+                        </View> */}
                         <Text style={styles.titleText}>제목 : {board.subject}</Text>
-                        <Text style={styles.contentText}>작성자 : {boardUser.nickName}</Text>
-                        <Text style={styles.contentText}>작성일시 : {board.created}</Text>
+                        <Text style={styles.nicknameText}>작성자 : {boardUser.nickName}</Text>
+                        <Text style={styles.dateText}>작성일시 : {board.created}</Text>
                         <Text style={styles.contentText}>내용 : {board.content}</Text>
 
                     </View>
@@ -107,10 +107,22 @@ const CommunityClick = ({route, navigation}) => {
                     <List>
                         {Object.values(comment)
                         .map((item, index) => (
+                            index == '0' ? 
+                            <View style={styles.comment} key={index}>
+                                <View style={styles.writer}>
+                                    <Text style={styles.name}>이름 : </Text>
+                                    <Text style={styles.writerText}>{item.user.nickName}</Text>
+                                </View>
+                                <Text style={styles.commentText}>내용 : {item.comment}</Text>
+                            </View>
+                            :
                             <View style={styles.comment} key={index}>
                                 <View style={styles.contourLine}/>
-                                <Text style={styles.writerText}>{item.user.nickName}</Text>
-                                <Text style={styles.commentText}>{item.comment}</Text>
+                                <View style={styles.writer}>
+                                    <Text style={styles.name}>이름 : </Text>
+                                    <Text style={styles.writerText}>{item.user.nickName}</Text>
+                                </View>
+                                <Text style={styles.commentText}>내용 : {item.comment}</Text>
                             </View>
                         ))}
                     </List>
@@ -166,7 +178,7 @@ const styles = StyleSheet.create({
     },
     profile: {
         flexDirection: 'row',
-        paddingBottom: 10,
+        // paddingBottom: 10,
     },
     image: {
         // maxWidth: 100,
@@ -188,6 +200,12 @@ const styles = StyleSheet.create({
         fontSize: 20,
         marginBottom: 10,
     },
+    nicknameText: {
+        textAlign: 'right',
+    },
+    dateText : {
+        textAlign: 'right',
+    },
     contentText: {
         fontSize: 17,
     },
@@ -202,10 +220,17 @@ const styles = StyleSheet.create({
 
     },
     comment: {
-
+        width: SCREEN_WIDTH*0.9,
+    },
+    writer: {
+        flexDirection:'row',
+    },
+    name: {
+        fontSize: 17,
     },
     writerText: {
         fontSize: 17,
+        fontWeight:'500',
     },
     commentText: {
         fontSize: 17,
