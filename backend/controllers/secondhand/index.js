@@ -6,6 +6,7 @@ const createSecondhand = async(req, res)=> {
     if(!data.userIdx || !data.subject || !data.content){
         res.send({message : "wrong form"}); return;
     }
+    console.log(data)
     try {
         const result = await secondhandService.createSecondhand(data);
         res.send({data : result});

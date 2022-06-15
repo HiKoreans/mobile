@@ -56,24 +56,18 @@ const MarketClick = ({route, navigation}) => {
         getComment();
     },[]);
 
-    const _addComment = () => {
-        
+    const _addComment = async() => {
+        try{
+            await secondhandService.postSecondhandComment(user.userIdx, secondhand.secondhandIdx, newComment);
+            setNewComment('');
+            await getComment();
+        }catch(err){
+            console.log(err);
+        }
     };
-
-    const _saveComments = async comments => {
-        // 서버에 저장
-        // try {
-        //     await AsyncStorage.setItem('tasks', JSON.stringify(tasks));
-        //     setTasks(tasks);
-        //   } catch (e) {
-        //     console.error(e);
-        //   }
-    };
-
     const _handleTextChange = text => {
         setNewComment(text);
     };
-
     return (
         <Container>
             <View style={styles.header}>
@@ -93,13 +87,14 @@ const MarketClick = ({route, navigation}) => {
                                 style={styles.image}
                                 // source={{uri: contents.image}}
                                 resizeMode='contain'/>
-                            {/* <Text style={styles.contentWriterText}>{secondhandUser.nickName}</Text> */}
                         </View>
                         <View style={styles.titlePart}>
                             <View style={styles.title}>
                                 <Text style={{...styles.type, color: secondhand.type == '0' ? 'blue' : 'red'}}>{secondhand.type == '0' ? '(팝니다)': '(삽니다)'}</Text>
                                 <Text style={styles.titleText}>{secondhand.subject}</Text> 
+                                <Text style={styles.contentWriterText}>글쓴이 : {secondhandUser.nickName}</Text>
                             </View>
+                            <Text style={styles.priceText}>{secondhand.price}$</Text>
                         </View>
                         <Text style={styles.contentText}>{secondhand.content}</Text>
                     </View>
@@ -107,10 +102,6 @@ const MarketClick = ({route, navigation}) => {
                     <List>
                         {Object.values(comments)
                         .map((item, index) => (
-                                // <View style={styles.comment} key={item.id}>
-                                //     <Text style={styles.writerText}>{item.writer}</Text>
-                                //     <Text style={styles.commentText}>{item.comment}</Text>
-                                // </View>
                                 <View style={styles.comment} key={index}>
                                     <View style={styles.contourLine}/>
                                     <Text style={styles.writerText}>이름 : {item.user.nickName}</Text>
