@@ -2,7 +2,7 @@ const { DataTypes, Sequelize }= require('sequelize');
 
 const create = async (sequelize) => {
   const recruitmentTable = await sequelize.define('recruitment', {
-      recruitmentIdx: {
+    recruitmentIdx: {
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,

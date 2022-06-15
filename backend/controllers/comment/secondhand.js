@@ -19,7 +19,7 @@ const createSecondhandComment = async (req, res)=> {
 const getSecondhandComment = async (req, res)=> {
     const secondhandIdx = req.params.secondhandIdx;
     try{
-        const result = await commentService.board.getSecondhandComment(secondhandIdx);
+        const result = await commentService.secondhand.getSecondhandComment(secondhandIdx);
         res.send(result);
     }catch(err){
         winston.error(`Unable to getSecondhandComment :`, err);

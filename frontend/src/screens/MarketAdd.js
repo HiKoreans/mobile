@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/native';
 import { StyleSheet, Text, View, TouchableOpacity, Dimensions, Image } from 'react-native';
-import AppLoading from 'expo-app-loading';
 import { StatusBar } from 'expo-status-bar';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import writeIcon from '../images/write.png'
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const { width : SCREEN_WIDTH, height : SCREEN_HEIGHT } = Dimensions.get("window");
 
 const Container = styled.View`
@@ -22,19 +21,11 @@ const MarketAdd = ({navigation}) => {
     const [price, setPrice] = useState('');
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
-    const [contents, setContents] = useState({
-        //데이터 연동시 제거부분
-        '1': { id: '1', type: '0', title: '영어팩', content: '영어팩내용', price: '$15', writer: '관리자', image: 'https://picsum.photos/id/237/200/300' },
-        '2': { id: '2', type: '0', title: '미니냉장고', content: '미니냉장고 내용', price: '$15', writer: '관리자', image: 'https://picsum.photos/id/237/200/300' },
-        '3': { id: '3', type: '1', title: '주변 한식당 맛집 추천해주세요~', content: '주변 한식당 맛집내용', price: '$15', writer: '관리자', image: 'https://picsum.photos/id/237/200/300' },
-        '4': { id: '4', type: '1', title: 'abc University 재학 중인 분 계산가요?', content: 'abc University내용', price: '$15', writer: '관리자', image: 'https://picsum.photos/id/237/200/300' },
-        '5': { id: '5', type: '1', title: '유니버셜 스튜디오 꿀팁 공유합니다!', content: '유니버셜 스튜디오 꿀팁 내용', price: '$15', writer: '관리자', image: 'https://picsum.photos/id/237/200/300' },
-        '6': { id: '6', type: '1', title: '~~~~~~~~~~', content: '~~~~~~~~~~내용', price: '$15', writer: '관리자', image: 'https://picsum.photos/id/237/200/300' },
-      });
+    const [contents, setContents] = useState([]);
 
     const [user, setUser] = useState({});
 
-    const fetchUser = async () => {
+    const getUser = async () => {
         const temp = await AsyncStorage.getItem('accesstoken');
         const temp2 =  JSON.parse(temp);
         temp2.created =await temp2.created.substr(0, 10);
@@ -42,7 +33,7 @@ const MarketAdd = ({navigation}) => {
     };
 
     useEffect(() => {
-        fetchUser();
+        getUser();
     },[]);
 
     const _addContents = (navigation) => {
