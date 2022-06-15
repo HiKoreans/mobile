@@ -3,11 +3,14 @@ const winston = require('../../lib/common/winston');
 
 const createSecondhand = async(data) => {
     let result;
+
     try{
         result = await models['secondhand'].create({
             userIdx : data.userIdx,
             subject : data.subject,
             content : data.content,
+            price : data.price,
+            type : data.type
         })
         return result;
     }catch(err) {
@@ -18,7 +21,13 @@ const createSecondhand = async(data) => {
 const getSecondhandList = async ()=> {
     let result;
     try {
-        result = await models['secondhand'].findAll();
+        result = await models['secondhand'].findAll({
+            include : [
+                {
+                    model : models['user'],
+                }
+            ]
+        });
         return result;
     }catch(err){
         winston.error(`Unable to getSecondhandList[servcie] :`, err);
