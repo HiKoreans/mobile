@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet} from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView} from 'react-native';
 import axios from 'axios';
 import anonymous from '../service/anonymous'
 const SignUp = () => {
@@ -41,6 +41,7 @@ const SignUp = () => {
   }
 
   return (
+    <ScrollView style={styles.scroll}>
       <View style={styles.container}>
                 <View style={styles.formArea}>
                   <Text style={styles.formName}>아이디</Text>
@@ -93,10 +94,14 @@ const SignUp = () => {
                     </TouchableOpacity>
                 </View>
             </View>
+            </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  scroll:{
+    backgroundColor: '#E7EBF4',
+  },
   container: {
         backgroundColor: '#E7EBF4',
         paddingLeft: '10%',
@@ -118,7 +123,7 @@ const styles = StyleSheet.create({
       height: 30,
       paddingLeft: 5,
       paddingRight: 5,
-      marginBottom: 15,
+      marginBottom: 40,
       borderBottomColor: "#9EAFD2",
       borderBottomWidth: 4,
   },
@@ -132,10 +137,11 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: "#9EAFD2",
     borderRadius: 10,
-    width: "10%",
-    height: 30,
+    width: "35%",
+    height: 40,
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 20,
 },
 buttonTitle: {
     color: 'black',

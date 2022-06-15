@@ -32,6 +32,7 @@ const TabNavigation = () => {
         name="홈"
         component={Main}
         options={{
+          headerShown: false,
           tabBarLabel: '홈',
           tabBarIcon: props =>
             TabIcon({
@@ -83,6 +84,7 @@ const TabNavigation = () => {
         name="내정보"
         component={MyInfo}
         options={{
+          headerShown: false,
           tabBarLabel: '내정보',
           tabBarIcon: props =>
             TabIcon({

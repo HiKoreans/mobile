@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const address = 'http://172.30.1.59:8080'
+const address = 'http://192.168.0.10:8080'
 
 const getBoardList = async()=> {
     try{
