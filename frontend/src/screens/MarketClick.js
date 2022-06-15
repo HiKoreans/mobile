@@ -5,7 +5,8 @@ import AppLoading from 'expo-app-loading';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { StatusBar } from 'expo-status-bar';
 import writeIcon from '../images/write.png'
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import secondhandService from '../service/secondhand';
 const { width : SCREEN_WIDTH, height : SCREEN_HEIGHT } = Dimensions.get("window");
 
 const Container = styled.View`
@@ -20,67 +21,42 @@ const List = styled.ScrollView`
 `;
 
 const MarketClick = ({route, navigation}) => {
+    const secondhandItem = route.params;
+    
+    const [secondhand, setSecondhand] = useState({});
+    const [secondhandUser, setSecondhandUser] = useState({});
 
+    const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState('');
-
-    const item = route.params;
-    // console.log(item.id);
-
-    var id = '';
-    var type = '';
-    var title = '';
-    var content = '';
-    var price = '';
-    var writer = '';
-    var image = '';
-    Object.values(item).map(item => {
-        id = item.id;
-        type = item.type;
-        title = item.title;
-        content = item.content;
-        price = item.price;
-        writer = item.writer;
-        image = item.image;
-    })
-
-
-    const [contents, setContents] = useState({
-        id: id, type: type, title: title, content: content, price: price, writer: writer, image: image
-    });
-
-    const [comments, setComments] = useState({
-        '1': { id: '1', writer: '도날드덕', comment: '냉장고 내부 사진이 궁금합니다.' },
-        '2': { id: '2', writer: '햄버거질려', comment: '거래 가능할까요?' },
-    });
-
     const [user, setUser] = useState({});
 
-    const fetchUser = async () => {
+    const getUser = async () => {
         const temp = await AsyncStorage.getItem('accesstoken');
         const temp2 =  JSON.parse(temp);
         temp2.created =await temp2.created.substr(0, 10);
         setUser(temp2);
     };
-
+    const getSecondhand =  () => {
+        secondhandItem.item.created= secondhandItem.item.created.substr(0, 10);
+        setSecondhand(secondhandItem.item);
+        setSecondhandUser(secondhandItem.item.user);
+    }; 
+    const getComment =async ()=> {
+        try {
+            const result = await secondhandService.getComment(secondhandItem.item.secondhandIdx);
+            console.log(result.data)
+            setComments(result.data)
+        }catch(err){
+            console.log(err);
+        }
+    }
     useEffect(() => {
-        fetchUser();
+        getUser();
+        getSecondhand();
+        getComment();
     },[]);
 
     const _addComment = () => {
-        var lastID = '0';
-        Object.values(comments).map(item => {
-            lastID = item.id;
-        })
-        const newID = String(parseInt(lastID)+1);
-        const newCommentObject = {
-            [newID] : { id: newID, writer: user.nickname, comment: newComment },
-            // [newID] : { id: newID, writer: 'user.nickname', comment: newComment },
-        };
-        setNewComment('');
-        setComments({ ...comments, ...newCommentObject });
-        _saveComments({ ...comments, ...newCommentObject });
-        // const lastID
-        // const ID = 
         
     };
 
@@ -115,37 +91,32 @@ const MarketClick = ({route, navigation}) => {
                         <View style={styles.profile}>
                             <Image 
                                 style={styles.image}
-                                source={{uri: contents.image}}
+                                // source={{uri: contents.image}}
                                 resizeMode='contain'/>
-                            <Text style={styles.contentWriterText}>{contents.writer}</Text>
+                            {/* <Text style={styles.contentWriterText}>{secondhandUser.nickName}</Text> */}
                         </View>
                         <View style={styles.titlePart}>
                             <View style={styles.title}>
-                                <Text style={{...styles.type, color: contents.type == '0' ? 'blue' : 'red'}}>{contents.type == '0' ? '(팝니다)': '(삽니다)'}</Text>
-                                <Text style={styles.titleText}>{contents.title}</Text> 
+                                <Text style={{...styles.type, color: secondhand.type == '0' ? 'blue' : 'red'}}>{secondhand.type == '0' ? '(팝니다)': '(삽니다)'}</Text>
+                                <Text style={styles.titleText}>{secondhand.subject}</Text> 
                             </View>
-                            <Text style={styles.priceText}>{contents.price}</Text>
                         </View>
-                        <Text style={styles.contentText}>{contents.content}</Text>
+                        <Text style={styles.contentText}>{secondhand.content}</Text>
                     </View>
                     <View style={styles.contourLine}/>
                     <List>
-                    {/* <View style={styles.comments}> */}
                         {Object.values(comments)
-                        .map(item => (
-                            item.id == "1" ? 
-                                <View style={styles.comment} key={item.id}>
-                                    <Text style={styles.writerText}>{item.writer}</Text>
-                                    <Text style={styles.commentText}>{item.comment}</Text>
-                                </View>
-                            :
-                                <View style={styles.comment} key={item.id}>
+                        .map((item, index) => (
+                                // <View style={styles.comment} key={item.id}>
+                                //     <Text style={styles.writerText}>{item.writer}</Text>
+                                //     <Text style={styles.commentText}>{item.comment}</Text>
+                                // </View>
+                                <View style={styles.comment} key={index}>
                                     <View style={styles.contourLine}/>
-                                    <Text style={styles.writerText}>{item.writer}</Text>
-                                    <Text style={styles.commentText}>{item.comment}</Text>
+                                    <Text style={styles.writerText}>이름 : {item.user.nickName}</Text>
+                                    <Text style={styles.commentText}>내용 :  {item.comment}</Text>
                                 </View>
                         ))}
-                    {/* </View> */}
                     </List>
                     <View style={styles.input}>
                         <TextInput style={styles.textInput} placeholder='댓글 입력' onChangeText={_handleTextChange} value={newComment} ></TextInput>

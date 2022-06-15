@@ -3,7 +3,8 @@ import styled from 'styled-components/native';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native';
 import Promotion from '../images/PM.jpg';
 import boardService from '../service/board';
-
+import secondhandService from '../service/secondhand';
+import recruitmentService from '../service/recruitment';
 
 
 
@@ -26,7 +27,7 @@ const Main = () => {
   }
   const getSecondhandList = async()=> {
     try{
-      const result = await boardService.getSecondhandList();
+      const result = await secondhandService.getSecondhandList();
       let temp = [];
       for(let i = 0; i < 3; i++){
         temp[i] = result.data[i];
@@ -38,7 +39,7 @@ const Main = () => {
   }
   const getRecruitmentList = async()=> {
     try{
-      const result = await boardService.getRecruitmentList();
+      const result = await recruitmentService.getRecruitmentList();
       let temp = [];
       for(let i = 0; i < 3; i++){
         temp[i] = result.data[i];

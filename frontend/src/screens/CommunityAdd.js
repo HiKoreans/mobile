@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/native';
 import { StyleSheet, Text, View, TouchableOpacity, Dimensions, Image } from 'react-native';
-import AppLoading from 'expo-app-loading';
 import { StatusBar } from 'expo-status-bar';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import writeIcon from '../images/write.png'
