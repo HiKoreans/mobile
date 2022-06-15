@@ -12,6 +12,19 @@ const getRecruitmentList = async()=> {
     }
 }
 
+const postRecruitment = async (userIdx, subject, content)=> {
+  try{
+    const result = await axios.post(`${address}/recruitment`, {
+      userIdx : userIdx,
+      subject : subject,
+      content : content
+    });
+    return result;
+  }catch(err){
+    console.log(err)
+  }
+}
+
 export default {
-    getRecruitmentList
+    getRecruitmentList, postRecruitment
 }

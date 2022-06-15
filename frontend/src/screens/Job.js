@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/native';
 import { StyleSheet, Text, View, TouchableOpacity, Dimensions, Image } from 'react-native';
-import AppLoading from 'expo-app-loading';
 import { StatusBar } from 'expo-status-bar';
 import writeIcon from '../images/write.png'
-
+import recruitmentService from '../service/recruitment';
 const { width : SCREEN_WIDTH } = Dimensions.get("window");
+import { useIsFocused } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Container = styled.View`
   flex: 1;
@@ -23,27 +24,45 @@ const List = styled.ScrollView`
 `;
 
 const Job = ({navigation}) => {
+  const isFocused = useIsFocused();
+  const [recruitment, setRecruitment] = useState([]);
+  const [user, setUser] = useState({});
 
-  const [isReady, setIsReady] = useState(false);
-  const [contents, setContents] = useState({
-    '1': { id: '1', title: 'Project Manager', content: 'Netmarble US에서 Project Manager를 모집합니다.', writer: 'Netmarble US', profile: 'https://picsum.photos/id/237/200/300', image: 'https://picsum.photos/id/237/200/300' },
-    '2': { id: '2', title: 'Project Manager', content: 'Netmarble US에서 Project Manager를 모집합니다.', writer: 'Netmarble US', profile: 'https://picsum.photos/id/237/200/300', image: 'https://picsum.photos/id/237/200/300' },
-    '3': { id: '3', title: 'Project Manager', content: 'Netmarble US에서 Project Manager를 모집합니다.', writer: 'Netmarble US', profile: 'https://picsum.photos/id/237/200/300', image: 'https://picsum.photos/id/237/200/300' },
-    '4': { id: '4', title: 'Project Manager', content: 'Netmarble US에서 Project Manager를 모집합니다.', writer: 'Netmarble US', profile: 'https://picsum.photos/id/237/200/300', image: 'https://picsum.photos/id/237/200/300' },
-    '5': { id: '5', title: 'Project Manager', content: 'Netmarble US에서 Project Manager를 모집합니다.', writer: 'Netmarble US', profile: 'https://picsum.photos/id/237/200/300', image: 'https://picsum.photos/id/237/200/300' },
-    '6': { id: '6', title: 'Project Manager', content: 'Netmarble US에서 Project Manager를 모집합니다.', writer: 'Netmarble US', profile: 'https://picsum.photos/id/237/200/300', image: 'https://picsum.photos/id/237/200/300' },
-  });
-
-  const _loadData = async () => {
-    // const data = await AsyncStorage.getItem('data');
-    // setContents(JSON.parse(data || '{}'));
+  const getUser = async () => {
+    const temp = await AsyncStorage.getItem('accesstoken');
+    const temp2 =  JSON.parse(temp);
+    temp2.created =await temp2.created.substr(0, 10);
+    setUser(temp2);
   };
+  const getRecruitmentList = async ()=> {
+    try{
+      const result = await recruitmentService.getRecruitmentList();
+      for(let i = 0; i < result.data.length; i++){
+        result.data[i].content = await result.data[i].content.substr(0, 12);
+      }
+      setRecruitment(result.data);
+    }catch(err){
+      console.log(err);
+    }
+  }
+  const moveToAdd = (navigation)=> {
+    if(user.role ==='admin'){
+      navigation.navigate('구인광고 작성 페이지')
+    }else {
+      alert('관리자만 작성이 가능합니다.');
+    }
+  }
 
-  return isReady ? (
+  useEffect(() => {
+    getUser();
+    getRecruitmentList();
+  },[isFocused]);
+
+  return  (
     <Container>
       <View style={styles.header}>
                 <Text style={styles.headerText}>구인광고</Text>
-                <TouchableOpacity onPress={() => navigation.navigate('구인광고 작성 페이지')}>
+                <TouchableOpacity onPress={() => moveToAdd(navigation)}>
                 <Image 
                     style={styles.writeImage}
                     source={writeIcon}
@@ -52,18 +71,19 @@ const Job = ({navigation}) => {
             </View>
       <List>
         <View style={styles.outer}>
-          {Object.values(contents)
-            .map(item => (
-              <View style={styles.content} key={item.id}>
+          {Object.values(recruitment)
+            .map((item, index) => (
+              <View style={styles.content} key={index}>
                 <TouchableOpacity onPress={() => navigation.navigate('구인광고 글 페이지', {item})}>
                   <View style={styles.titlePart}>
-                    <Text style={styles.title}>{item.title}</Text>
-                    <Text style={styles.writer}>{item.writer}</Text>
+                    <Text style={styles.title}>{item.subject}</Text>
+                    <Text style={styles.title}>{item.content}</Text>
+                    <Text style={styles.writer}>{item.user.nickName}</Text>
                   </View>
-                  <Image 
+                  {/* <Image 
                       style={styles.image}
                       source={{uri: item.image}}
-                      resizeMode='contain'/>
+                      resizeMode='contain'/> */}
                 </TouchableOpacity>
               </View>
           ))}
@@ -71,13 +91,7 @@ const Job = ({navigation}) => {
       </List>
       <StatusBar style="auto" />
     </Container>
-  ) : (
-    <AppLoading
-      startAsync={_loadData}
-      onFinish={() => setIsReady(true)}
-      onError={console.error}
-    />
-  );
+  )
 };
 
 const styles = StyleSheet.create({
