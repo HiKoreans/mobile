@@ -18,8 +18,8 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="로그인">
-        <Stack.Screen name="로그인" component={LoginScreen} />
-        <Stack.Screen name="회원가입" component={SignUp} />
+        <Stack.Screen name="로그인" component={LoginScreen} options={{headerShown: false,}}/>
+        <Stack.Screen name="회원가입" component={SignUp} options={{headerShown: false,}}/>
         <Stack.Screen name="HiKoreans" component={HiKoreans} options={{headerShown: false,}}/>
         <Stack.Screen name="동네생활 글 페이지" component={CommunityClick} options={{headerShown: false,}}/>
         <Stack.Screen name="벼룩시장 글 페이지" component={MarketClick} options={{headerShown: false,}}/>
