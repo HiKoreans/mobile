@@ -3,11 +3,16 @@ const winston = require('../../lib/common/winston');
 
 const createBoard = async(req , res)=> {
     const data = req.body;
+    console.log(data)
     if(!data.userIdx || !data.subject || !data.content){
         res.send({message : "wrong form"}); return;
     }
+    let seperateNotice;
+    if(data.userRole === 'admin')seperateNotice = 1;
+    else seperateNotice = 0;
+        
     try{
-        const result = await boardService.createBoard(data);
+        const result = await boardService.createBoard(data, seperateNotice);
         res.send({data : result});
     }catch(err){
         winston.error(`Unable to createboard :`, err);

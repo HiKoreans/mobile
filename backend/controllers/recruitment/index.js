@@ -18,7 +18,6 @@ const createRecruitment = async(req, res)=> {
 const getRecruitment = async(req, res)=> {
     try{
         const result = await recruitmentService.getRecruitmentList();
-        console.log(result);
         res.send(result);
     }catch(err){
         winston.error(`Unable to getRecruitment :`, err);
