@@ -24,9 +24,10 @@ const List = styled.ScrollView`
     /* width: '100%', */
 `;
 
+
 const CommunityClick = ({route, navigation}) => {
     const {item} = route.params;
-
+    
     const [newComment, setNewComment] = useState('');
     const [board, setBoard] = useState({});
     const [boardUser, setboardUser] = useState({});
@@ -97,10 +98,10 @@ const CommunityClick = ({route, navigation}) => {
                         {/* <View style={styles.profile}>
                             <Text style={styles.contentWriterText}>{board.writer}</Text>
                         </View> */}
-                        <Text style={styles.titleText}>제목 : {board.subject}</Text>
+                        <Text style={styles.titleText}>{board.subject}</Text>
                         <Text style={styles.nicknameText}>작성자 : {boardUser.nickName}</Text>
                         <Text style={styles.dateText}>작성일시 : {board.created}</Text>
-                        <Text style={styles.contentText}>내용 : {board.content}</Text>
+                        <Text style={styles.contentText}>{board.content}</Text>
 
                     </View>
                     <View style={styles.contourLine}/>
@@ -110,19 +111,17 @@ const CommunityClick = ({route, navigation}) => {
                             index == '0' ? 
                             <View style={styles.comment} key={index}>
                                 <View style={styles.writer}>
-                                    <Text style={styles.name}>이름 : </Text>
                                     <Text style={styles.writerText}>{item.user.nickName}</Text>
                                 </View>
-                                <Text style={styles.commentText}>내용 : {item.comment}</Text>
+                                <Text style={styles.commentText}>{item.comment}</Text>
                             </View>
                             :
                             <View style={styles.comment} key={index}>
                                 <View style={styles.contourLine}/>
                                 <View style={styles.writer}>
-                                    <Text style={styles.name}>이름 : </Text>
                                     <Text style={styles.writerText}>{item.user.nickName}</Text>
                                 </View>
-                                <Text style={styles.commentText}>내용 : {item.comment}</Text>
+                                <Text style={styles.commentText}>{item.comment}</Text>
                             </View>
                         ))}
                     </List>
@@ -197,17 +196,17 @@ const styles = StyleSheet.create({
     },
     titleText: {
         fontWeight: '900',
-        fontSize: 20,
+        fontSize: 25,
         marginBottom: 10,
     },
     nicknameText: {
-        textAlign: 'right',
+        marginTop : 20
     },
     dateText : {
-        textAlign: 'right',
+        marginBottom : 40
     },
     contentText: {
-        fontSize: 17,
+        fontSize: 20,
     },
     contourLine: {
         borderBottomColor: '#9EAFD2', 
@@ -229,7 +228,7 @@ const styles = StyleSheet.create({
         fontSize: 17,
     },
     writerText: {
-        fontSize: 17,
+        fontSize: 25,
         fontWeight:'500',
     },
     commentText: {
