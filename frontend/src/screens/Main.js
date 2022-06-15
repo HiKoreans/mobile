@@ -1,22 +1,18 @@
 import React, {useEffect, useState} from 'react';
-import styled from 'styled-components/native';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ScrollView, Dimensions } from 'react-native';
-import Promotion from '../images/PM.jpg';
 import boardService from '../service/board';
-const { width : SCREEN_WIDTH } = Dimensions.get("window");
+import styled from 'styled-components/native';
 import korea from '../images/southkorea.png';
 import germany from '../images/germany.png';
-
+import secondhandService from '../service/secondhand';
+import recruitmentService from '../service/recruitment';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ScrollView, Dimensions } from 'react-native';
+const { width : SCREEN_WIDTH, height : SCREEN_HEIGHT } = Dimensions.get("window");
 
 const Container = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
   background-color: #E7EBF4;
-`;
-
-const List = styled.ScrollView`
-  flex: 1;
 `;
 
 const Main = () => {
@@ -38,7 +34,7 @@ const Main = () => {
   }
   const getSecondhandList = async()=> {
     try{
-      const result = await boardService.getSecondhandList();
+      const result = await secondhandService.getSecondhandList();
       let temp = [];
       for(let i = 0; i < 3; i++){
         temp[i] = result.data[i];
@@ -50,7 +46,7 @@ const Main = () => {
   }
   const getRecruitmentList = async()=> {
     try{
-      const result = await boardService.getRecruitmentList();
+      const result = await recruitmentService.getRecruitmentList();
       let temp = [];
       for(let i = 0; i < 3; i++){
         temp[i] = result.data[i];
@@ -61,12 +57,12 @@ const Main = () => {
     }
   }
 
+
   useEffect(() => {
     getBoardList();
     getSecondhandList();
     getRecruitmentList();
   },[]);
-
   return (
     <Container>
     <ScrollView style={styles.scroll}>

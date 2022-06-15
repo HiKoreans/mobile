@@ -68,11 +68,11 @@ const TabNavigation = () => {
         }}
       />
       <Tab.Screen
-        name="구인공고"
+        name="구인광고"
         component={Job}
         options={{
           headerShown: false,
-          tabBarLabel: '구인공고',
+          tabBarLabel: '구인광고',
           tabBarIcon: props =>
             TabIcon({
               ...props,

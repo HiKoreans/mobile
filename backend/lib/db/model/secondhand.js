@@ -26,7 +26,12 @@ const create = async (sequelize) => {
         type: DataTypes.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       },
-
+      type: {
+        type: DataTypes.INTEGER
+      },
+      price: {
+        type: DataTypes.INTEGER
+      },
     }, {
       // Other model options go here
       timestamps: false,

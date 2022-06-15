@@ -6,8 +6,8 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import writeIcon from '../images/write.png'
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import secondhandService from '../service/secondhand';
 const { width : SCREEN_WIDTH, height : SCREEN_HEIGHT } = Dimensions.get("window");
-import boardService from '../service/board';
 
 const Container = styled.View`
   flex: 1;
@@ -16,11 +16,16 @@ const Container = styled.View`
   background-color: #E7EBF4;
 `;
 
-const CommunityAdd = ({navigation}) => {
-    
+const MarketAdd = ({navigation}) => {
+
+    const [isSelling, setIsSelling] = useState(true);
+
     const [user, setUser] = useState({});
     const [subject, setSubject] = useState('');
     const [content, setContent] = useState('');
+    const [price, setPrice] = useState('');
+    // const [contents, setContents] = useState([]);
+
 
     const getUser = async () => {
         const temp = await AsyncStorage.getItem('accesstoken');
@@ -33,31 +38,35 @@ const CommunityAdd = ({navigation}) => {
         getUser();
     },[]);
 
-    const addBoard = async (navigation) => {
-        if(!subject || !content){
-            alert('제목이나 내용이 입력되지 않았습니다. 다시 입력해주세요.'); return;
-        }
+    const addSecondhand = async (navigation) => {
         try{
-            const userIdx = user.userIdx;
-            const userRole = user.role;
-            await boardService.postBoard(userIdx, userRole, subject, content);
-            navigation.goBack('동네생활 글 페이지');
+            await secondhandService.postSecondhand(user.userIdx, subject, content, price, isSelling);
+            navigation.goBack('벼룩시장 글 페이지');
         }catch(err){
             console.log(err);
         }
     };
 
-    const _handleTitleTextChange = subject => {
-        setSubject(subject);
+    const _pressSell = () => {
+        setIsSelling(true);
     };
-    const _handleContentTextChange = content => {
-        setContent(content);
+    const _pressBuy = () => {
+        setIsSelling(false);
+    };
+    const _handlePriceTextChange = text => {
+        setPrice(text);
+    };
+    const _handleTitleTextChange = text => {
+        setSubject(text);
+    };
+    const _handleContentTextChange = text => {
+        setContent(text);
     };
 
     return (
         <Container>
             <View style={styles.header}>
-                <Text style={styles.headerText}>동네생활</Text>
+                <Text style={styles.headerText}>벼룩시장</Text>
                 <TouchableOpacity>
                 <Image 
                     style={styles.writeImage}
@@ -68,6 +77,23 @@ const CommunityAdd = ({navigation}) => {
             <KeyboardAwareScrollView>
                 <View style={styles.outer}>
                     <View style={styles.form}>
+                        <View style={styles.option}>
+                            <View style={styles.type}>
+                                <TouchableOpacity 
+                                    style={{...styles.sellBtn, 
+                                        backgroundColor: isSelling == true ? 'skyblue' : 'ivory',
+                                        borderColor : isSelling == true ? 'skyblue' : 'ivory',}} onPress={_pressSell}>
+                                    <Text style={styles.text}>팝니다</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity 
+                                    style={{...styles.buyBtn, 
+                                        backgroundColor: isSelling == true ? 'ivory' : 'skyblue',
+                                        borderColor : isSelling == true ? 'ivory' : 'skyblue',}} onPress={_pressBuy}>
+                                    <Text style={styles.text}>삽니다</Text>
+                                </TouchableOpacity>
+                            </View>
+                            <TextInput placeholder='가격' onChangeText={_handlePriceTextChange} value={price} />
+                        </View>
                         <View style={styles.title}>
                             <TextInput 
                                 style={styles.titleText} 
@@ -86,16 +112,15 @@ const CommunityAdd = ({navigation}) => {
                             </ScrollView>
                         </View>  
                     </View>
-                    <TouchableOpacity style={styles.uploadBtn} onPress={() => addBoard(navigation)}>
-                        <Text style={styles.uploadText}>업로드</Text>
+                    <TouchableOpacity style={styles.btn} onPress={() => addSecondhand(navigation)}>
+                        <Text style={styles.text}>업로드</Text>
                     </TouchableOpacity>
                 </View>
             </KeyboardAwareScrollView>
             <StatusBar style="auto" />
         </Container>
-    )
+    );
 };
-
 const styles = StyleSheet.create({
     header: {
         paddingTop: 40,
@@ -130,7 +155,15 @@ const styles = StyleSheet.create({
     form: {
         paddingHorizontal: 10,
     },
+    option: {
+        flexDirection: 'row',
+        justifyContent:'space-between',
+    },
+    type: {
+        flexDirection: 'row',
+    },
     title: {
+        marginTop: 10,
         width: SCREEN_WIDTH*0.9-20-20,
         borderBottomColor: 'skyblue', 
         borderBottomWidth: 3, 
@@ -144,14 +177,14 @@ const styles = StyleSheet.create({
 
     },
     content: {
-        height: SCREEN_HEIGHT*0.85-40-40-20-20-10,
+        height: SCREEN_HEIGHT*0.85-40-40-20-20-60,
         marginVertical: 10,
     },
     contentText: {
         width: SCREEN_WIDTH*0.9-20-20,
         fontSize: 20,
     },
-    uploadBtn: {
+    btn: {
         backgroundColor: 'skyblue',
         borderRadius : 10,
         borderWidth : 1,
@@ -159,9 +192,26 @@ const styles = StyleSheet.create({
         paddingVertical: 8,
         paddingHorizontal: 15,
     },
-    uploadText: {
+    buyBtn: {
+        // backgroundColor: 'skyblue',
+        borderRadius : 10,
+        borderWidth : 1,
+        borderColor : 'skyblue',
+        paddingVertical: 5,
+        paddingHorizontal: 15,
+    },
+    sellBtn: {
+        marginRight: 10,
+        // backgroundColor: 'skyblue',
+        borderRadius : 10,
+        borderWidth : 1,
+        // borderColor : 'skyblue',
+        paddingVertical: 5,
+        paddingHorizontal: 15,
+    },
+    text: {
         fontSize: 20,
     },
 });
 
-export default CommunityAdd;
+export default MarketAdd;

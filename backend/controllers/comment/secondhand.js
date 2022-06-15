@@ -8,7 +8,7 @@ const createSecondhandComment = async (req, res)=> {
         res.send({message : "wrong form"}); return;
     }
     try{
-        const result = await commentService.board.createSecondhandComment(data);
+        const result = await commentService.secondhand.createSecondhandComment(data);
         res.send({data : result});
     }catch(err){
         winston.error(`Unable to createSecondhandComment :`, err);
@@ -19,7 +19,7 @@ const createSecondhandComment = async (req, res)=> {
 const getSecondhandComment = async (req, res)=> {
     const secondhandIdx = req.params.secondhandIdx;
     try{
-        const result = await commentService.board.getSecondhandComment(secondhandIdx);
+        const result = await commentService.secondhand.getSecondhandComment(secondhandIdx);
         res.send(result);
     }catch(err){
         winston.error(`Unable to getSecondhandComment :`, err);
