@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
     fontSize: 17,
   },
   contentWriter: {
-    fontSize: 20,
+    fontSize: 15,
     textAlign: 'right',
   }
 })

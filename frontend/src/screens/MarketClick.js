@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
     },
     contentText: {
-        fontSize: 20,
+        fontSize: 17,
     },
     contourLine: {
         borderBottomColor: '#9EAFD2', 
@@ -221,6 +221,7 @@ const styles = StyleSheet.create({
     writerText: {
         fontSize: 20,
         fontWeight:'500',
+        marginBottom : 10,
     },
     commentText: {
         fontSize: 15,
