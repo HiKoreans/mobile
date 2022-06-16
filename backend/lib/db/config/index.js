@@ -1,13 +1,13 @@
 module.exports = {
     local : {
-        username : 'postgres',
+        username : 'moon',
         password :  'postgres',
         database : 'mobile',
         host : 'localhost',
         dialect : 'postgres',
     },
     development : {
-        username : 'postgres',
+        username : 'moon',
         password :  'postgres',
         database : 'mobile',
         host : 'localhost',

@@ -59,7 +59,10 @@ const Main = ({navigation}) => {
       console.log(err);
     }
   }
-
+  const goToLogin= (navigation)=> {
+    alert('aaaa')
+    // navigation.navigate('로그인');
+  }
 
   useEffect(() => {
     getBoardList();
@@ -70,7 +73,7 @@ const Main = ({navigation}) => {
     <Container>
     <ScrollView style={styles.scroll}>
       <View style={styles.header}>
-        <Text style={styles.headerText}>HiKoreans</Text>
+        <Text style={styles.headerText}  >HiKoreans</Text>
         <View style={styles.imageArea}>
                     <Image source={korea} style={styles.image}/>
                     <Image source={germany} style={styles.image}/>

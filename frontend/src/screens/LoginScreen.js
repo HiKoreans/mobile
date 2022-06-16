@@ -7,8 +7,8 @@ import germany from '../images/germany.png';
 
 function LoginScreen({navigation}) {
 
-  const [id, setId] = useState('a');
-  const [password, setPassword] = useState('a');
+  const [id, setId] = useState('');
+  const [password, setPassword] = useState('');
 
 
   const loginPress = async () => {

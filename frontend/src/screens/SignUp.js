@@ -15,7 +15,7 @@ const Container = styled.View`
   background-color: #E7EBF4;
 `;
 
-const SignUp = () => {
+const SignUp = ({navigation}) => {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
@@ -43,7 +43,7 @@ const SignUp = () => {
         const result = anonymous.signup(id, password, email, nickName, region);
         if(result){
           alert('회원가입 성공!');
-          navigation.navigate('login');
+          navigation.navigate('로그인');
         }else{
           alert('회원가입에 오류가 발생했습니다. 다시 시도해주세요.');
         }

@@ -39,6 +39,14 @@ const MarketAdd = ({navigation}) => {
     },[]);
 
     const addSecondhand = async (navigation) => {
+        if(!subject){
+            alert('제목을 입력해주세요.'); return;
+        }else if(!content){
+            alert('내용을 입력해주세요.'); return;
+        }else if(!price){
+            alert('금액을 입력해주세요.'); return;
+        }
+
         try{
             await secondhandService.postSecondhand(user.userIdx, subject, content, price, isSelling);
             navigation.goBack('벼룩시장 글 페이지');

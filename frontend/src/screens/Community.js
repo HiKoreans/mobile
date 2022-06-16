@@ -46,6 +46,7 @@ const Community = ({navigation}) => {
   useEffect(() => {
     getBoardList();
   },[isFocused]);
+  
   return (
     <Container>
       <View style={styles.header}>
